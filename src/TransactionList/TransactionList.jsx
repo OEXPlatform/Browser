@@ -10,6 +10,7 @@ import BigNumber from "bignumber.js"
 import * as utils from '../utils/utils';
 import { T } from '../utils/lang';
 import * as txParser from '../utils/transactionParser';
+import Nodata from '../components/Common/Nodata';
 
 const txTag = require('./images/middle_icon_TX.png');
 const indicator = (
@@ -372,17 +373,19 @@ export default class TransactionList extends Component {
         {
           this.state.homePage ? 
             <IceContainer  title={T("交易")}>
-              <Table primaryKey="txHash" isZebra={false}  hasBorder={false} 
-                isLoading={this.state.isLoading}
-                loadingComponent={CustomLoading}
-                language={T('zh-cn')} hasHeader={false} 
-                dataSource={this.state.transactions}
-              >
-                <Table.Column width={50} cell={this.renderHeader.bind(this)}/>
-                <Table.Column title={T("交易Hash")} dataIndex="txHash" width={100} cell={this.renderHash2.bind(this)}/>
-                <Table.Column title={T("交易详情")} dataIndex="parsedActions" width={180} cell={this.renderDetailInfo2.bind(this)}/>
-                <Table.Column title={T("结果")} dataIndex="parsedActions" width={80} cell={this.renderResult2.bind(this)} />
-              </Table>
+              {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
+                <Table primaryKey="txHash" isZebra={false}  hasBorder={false} 
+                  isLoading={this.state.isLoading}
+                  loadingComponent={CustomLoading}
+                  language={T('zh-cn')} hasHeader={false} 
+                  dataSource={this.state.transactions}
+                >
+                  <Table.Column width={50} cell={this.renderHeader.bind(this)}/>
+                  <Table.Column title={T("交易Hash")} dataIndex="txHash" width={100} cell={this.renderHash2.bind(this)}/>
+                  <Table.Column title={T("交易详情")} dataIndex="parsedActions" width={180} cell={this.renderDetailInfo2.bind(this)}/>
+                  <Table.Column title={T("结果")} dataIndex="parsedActions" width={80} cell={this.renderResult2.bind(this)} />
+                </Table>
+              )}
               
               <Button type='primary' 
                       style={{width: '100%', height: '40px', background: 'rgb(239,240,255)', color: '#5c67f2'}}

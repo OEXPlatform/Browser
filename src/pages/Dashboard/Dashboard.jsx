@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid } from '@icedesign/base';
 import { Slider } from '@alifd/next';
+import './Dashboard.scss';
 
 import DisplayCard from './components/DisplayCard';
 
@@ -10,7 +11,7 @@ import BlocksTable from './components/BlocksTable';
 
 import TransactionsTable from './components/TransactionsTable';
 
-import './Dashboard.scss';
+
 
 const { Row, Col } = Grid;
 

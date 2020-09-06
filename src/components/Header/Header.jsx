@@ -181,9 +181,9 @@ export default class Header extends PureComponent {
                 return (
                   <MenuItem key={idx}>
                     {linkProps.to ? (
-                      <Link {...linkProps} style={{color: this.state.current == nav.name ? this.state.menuColor : '#000000'}}>
+                      <NavLink {...linkProps} activeClassName='select'>
                         {!isMobile ? T(nav.name) : null}
-                      </Link>
+                      </NavLink>
                     ) : (
                       <a {...linkProps}>
                         {!isMobile ? T(nav.name) : null}
