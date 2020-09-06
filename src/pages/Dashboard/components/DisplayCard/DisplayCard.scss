@@ -1,0 +1,24 @@
+.display-card-container {
+  width: 100%;
+  background-color: #080a20;
+  background: rgb(8, 10, 32);
+  .count {
+    color: #fff;
+  }
+  .title,
+  .desc {
+    color: #bebebe;
+  }
+}
+@media screen and (max-width: 100%) {
+  .display-card-container {
+    background: rgb(15, 15, 15);
+    .count {
+      color: #666;
+    }
+    .title,
+    .desc {
+      color: #999;
+    }
+  }
+}
