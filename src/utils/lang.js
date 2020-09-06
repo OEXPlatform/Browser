@@ -567,7 +567,23 @@ const ch2en = {
   '账户名' : 'Account',
   '资产描述' : 'Asset Description',
   "确定": "OK",
-  "高度/哈希" : "height/hash"
+  "高度/哈希" : "height/hash",
+  "工具" : "Tools",
+  "客户端下载" : "Download",
+  "官方人员验证通道" : "Offical Users Enterance",
+  "API文档" : "API DOC",
+  "服务" : "Services",
+  "费率" : "Fee",
+  "帮助中心" : "Help",
+  "OEX介绍" : "About OEX",
+  "支持" : "Supports",
+  "上币申请" : "Apply Issue Token",
+  "机构与招商账户" : "机构与招商账户",
+  "广告申请合作" : "Adv Bussiness",
+  "条款说明" : "说明条款",
+  "用户协议" : "User Agreement",
+  "隐私条款" : "Privacy Policy",
+  "交易规则" : "Trade Rules",
   }
 
   let isCh = true;

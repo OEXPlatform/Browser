@@ -97,99 +97,113 @@ class BlockTxLayout extends Component {
 
   render() {
     return (
-      // <IceContainer className="display-card-container" style={styles.container}>
       <IceContainer style={styles.container}>
-        <Row justify='space-around' style={{width: '80%', height: '90%', paddingLeft: '30px',border: '1px solid #f8f2f2', borderRadius: '5px'}}>
-          <Col span="4" style={styles.item}>
-            <Row align='center' style={styles.titleRow}>
-              <img src={block}/>
-              <div style={styles.title} className="title">
-                {T('最新区块')}
+        <div style={styles.containMain}>
+          <Row style={{width: '100%', display: 'flex', justifyContent: 'space-around',  borderBottom: '1px solid rgba(255, 255, 255, 0.7)', lineHeight: 1.5, marginBottom: 20}}>
+            <Col span='4' style={styles.item}>
+              <Row align='center' style={styles.titleRow}>
+                  <img src={block}/>
+                  <div style={styles.title} className="title">
+                    {T('最新区块')}
+                  </div>
+                </Row>
+            </Col>
+            <Col span='4' style={styles.item}>
+              <Row align='center' style={styles.titleRow}>
+                <img src={tx}/>
+                <div style={styles.title} className="title">
+                  {T('交易信息')}
+                </div>
+              </Row>
+            </Col>
+            <Col span='4' style={styles.item}>
+              <Row align='center' style={styles.titleRow}>
+                <img src={producer}/>
+                <div style={styles.title} className="title">
+                  {T('生产者')}
+                </div>
+              </Row>
+            </Col>
+            <Col span='4' style={styles.item}>
+              <Row align='center' style={styles.titleRow}>
+                <img src={votes}/>
+                <div style={styles.title} className="title">
+                  {T('投票数')}
+                </div>
+              </Row>
+            </Col>
+          </Row>
+          <Row style={{width: '100%',  display:'flex', justifyContent:'space-around'}}>
+            <Col span="4" style={styles.item}>
+              <div style={styles.countTitle}>
+              {T('最新区块高度')}
               </div>
-            </Row>
-            <div style={styles.countTitle}>
-             {T('最新区块高度')}
-            </div>
-            <div className="count" style={styles.count}>
-              {this.state.curBlockInfo.number}
-            </div>
-            
-            <div style={styles.smallCountTitle}>
-             {T('不可逆区块高度')}
-            </div>
-
-            <div className="count" style={styles.smallCount}>
-              {this.state.irreversible.bftIrreversible}
-            </div>
-          </Col>
-          <Col span="4" style={styles.item}>
-            <Row align='center' style={styles.titleRow}>
-              <img src={tx}/>
-              <div style={styles.title} className="title">
-                {T('交易信息')}
+              <div className="count" style={styles.count}>
+                {this.state.curBlockInfo.number}
               </div>
-            </Row>
-            <div style={styles.countTitle}>
-             {T('最新区块的TPS')}
-            </div>
-            <div className="count" style={styles.count}>
-              {this.state.curTps} TPS
-            </div>
-            
-            <div style={styles.smallCountTitle}>
-             {T('最新区块交易量')}
-            </div>
-
-            <div className="count" style={styles.smallCount}>
-              {this.state.txNum} Txns
-            </div>
-          </Col>
-          <Col span="4" style={styles.item}>
-            <Row align='center' style={styles.titleRow}>
-              <img src={producer}/>
-              <div style={styles.title} className="title">
-                {T('生产者')}
+              
+              <div style={styles.smallCountTitle}>
+              {T('不可逆区块高度')}
               </div>
-            </Row>
-            <div style={styles.countTitle}>
-             {T('注册为生产者的节点数量')}
-            </div>
-            <div className="count" style={styles.count}>
-              {this.state.curProducerList.length}
-            </div>
-            
-            <div style={styles.smallCountTitle}>
-             {T('出块节点数量')}
-            </div>
 
-            <div className="count" style={styles.smallCount}>
-              {this.state.activeProducers.length}
-            </div>
-          </Col>
-          <Col span="4" style={styles.item}>
-            
-            <Row align='center' style={styles.titleRow}>
-              <img src={votes}/>
-              <div style={styles.title} className="title">
-                {T('投票数')}
+              <div className="count" style={styles.smallCount}>
+                {this.state.irreversible.bftIrreversible}
               </div>
-            </Row>
-            <div style={styles.countTitle}>
-             {T('总投出的票数')}
-            </div>
-            <div className="count" style={styles.count}>
-              {this.state.latestEpchoInfo.totalQuantity} OEX
-            </div>
-            
-            <div style={styles.smallCountTitle}>
-             {T('出块节点获得的总票数')}
-            </div>
+            </Col>
+            <Col span="4" style={styles.item}>
+              
+              <div style={styles.countTitle}>
+              {T('最新区块的TPS')}
+              </div>
+              <div className="count" style={styles.count}>
+                {this.state.curTps} TPS
+              </div>
+              
+              <div style={styles.smallCountTitle}>
+              {T('最新区块交易量')}
+              </div>
 
-            <div className="count" style={styles.smallCount}>
-              {this.state.latestEpchoInfo.activatedTotalQuantity} OEX
-            </div>
-          </Col>
-        </Row>
+              <div className="count" style={styles.smallCount}>
+                {this.state.txNum} Txns
+              </div>
+            </Col>
+            <Col span="4" style={styles.item}>
+              
+              <div style={styles.countTitle}>
+              {T('注册为生产者的节点数量')}
+              </div>
+              <div className="count" style={styles.count}>
+                {this.state.curProducerList.length}
+              </div>
+              
+              <div style={styles.smallCountTitle}>
+              {T('出块节点数量')}
+              </div>
+
+              <div className="count" style={styles.smallCount}>
+                {this.state.activeProducers.length}
+              </div>
+            </Col>
+            <Col span="4" style={styles.item}>
+              
+              
+              <div style={styles.countTitle}>
+              {T('总投出的票数')}
+              </div>
+              <div className="count" style={styles.count}>
+                {this.state.latestEpchoInfo.totalQuantity} OEX
+              </div>
+              
+              <div style={styles.smallCountTitle}>
+              {T('出块节点获得的总票数')}
+              </div>
+
+              <div className="count" style={styles.smallCount}>
+                {this.state.latestEpchoInfo.activatedTotalQuantity} OEX
+              </div>
+            </Col>
+          </Row>
+        </div>
       </IceContainer>
     );
   }
@@ -197,13 +211,21 @@ class BlockTxLayout extends Component {
 
 const styles = {
   container: {
-    width: '100%', 
-    height: '310px', 
-    backgroundColor: '#080a20',
+    width: '100%',
+    padding: '30px 10%',
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    border: '1px solid rgba(8, 10, 32, 0.7)', 
+    borderRadius: '5px',
+  },
+  containMain:{
+    backgroundColor: '#080a20', 
+    width: '100%', 
+    borderRadius: '5px',
+    padding: '0 70px', 
+    border: '10px solid rgba(255, 255, 255, 0.7)'
   },
   item: {
     height: '100%', 
@@ -213,7 +235,7 @@ const styles = {
     justifyContent: 'center',
   },
   titleRow: {
-    margin: '28px 0 24px 0'
+    margin: '28px 0 24px 0',
   },
   title: {
     color: '#fff',

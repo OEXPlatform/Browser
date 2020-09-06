@@ -39,12 +39,18 @@ import RawTxConstructor from './pages/RawTxConstructor';
 import AutoTest from './pages/AutoTest';
 import Study from './pages/Study';
 import Dapp from './pages/Dapp';
+import Index from './pages/Index';
 
 
 const routerConfig = [
   {
     path: '/exception/403',
     component: Forbidden,
+    layout: BasicLayout,
+  },
+  {
+    path: '/index',
+    component: Index,
     layout: BasicLayout,
   },
   {

@@ -1,5 +1,7 @@
 $page-container-width: 90%;
 $base-color: #5c67f2;
+$ice-bottom-bg: #dedede;
+$ice-sub-text-color: #607d8b;
 /* GLOBAL */
 html,
 body {
@@ -38,16 +40,14 @@ body {
 .ice-design-header-aside-footer-layout-#{$theme} {
   .logo {
     max-width: 340px;
-    height: 42px;
-    line-height: 42px;
     .logo-text {
       display: block;
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-size: 36px;
-      color: $ice-logo-text-color;
+      font-size: 28px;
+      color: $ice-sub-text-color;
       font-weight: bold;
       font-family: Helvetica, sans-serif;
     }
@@ -218,7 +218,7 @@ body {
     /* FOOTER */
     .ice-design-layout-footer {
       width: 100%;
-      background-color: $base-color;
+      background-color: $ice-bottom-bg;
       padding: 10px 10%;
       margin: 0 auto;
       .ice-design-layout-footer-body {
@@ -228,7 +228,7 @@ body {
         align-items: center;
         .copyright {
           margin: 30px 10px 0 0;
-          color: #fff;
+          color: $ice-sub-text-color;
           line-height: 1.5;
           font-size: 12px;
           text-align: left;

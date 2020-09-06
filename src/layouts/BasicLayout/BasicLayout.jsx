@@ -146,6 +146,7 @@ class BasicLayout extends Component {
   };
 
   getMenuItemPath = (item) => {
+    console.log(item.path);
     return <Link to={item.path}>{T(item.name)}</Link>;
   };
 

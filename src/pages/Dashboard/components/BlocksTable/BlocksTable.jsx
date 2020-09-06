@@ -10,6 +10,7 @@ import * as utils from '../../../../utils/utils';
 import { T } from '../../../../utils/lang';
 import BlockList from '../../../BlockList';
 import eventProxy from '../../../../utils/eventProxy';
+import Nodata from '../../../../components/Common/Nodata';
 
 
 const block = require('./images/middle_icon_BK.png');
@@ -141,24 +142,28 @@ export default class BlocksTable extends Component {
     return (
       <div className="progress-table">
         <IceContainer className="tab-card" title={T("区块")} >
-          <Table hasHeader={false} isZebra={false}  hasBorder={false}
-            isLoading={this.state.isLoading}
-            loadingComponent={CustomLoading}
-            dataSource={this.state.blockList}
-            primaryKey="number"
-            language={T('zh-cn')}
-          >
-            <Table.Column width={100} cell={this.renderHeader.bind(this)}/>
-            <Table.Column title={T("高度")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
-            <Table.Column title={T("详情")} dataIndex="timestamp" width={200} cell={this.renderBlockInfo.bind(this)}/>
-            <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={100} cell={this.renderGas.bind(this)}/>
+          {
+            (this.state.isLoading || !this.state.blockList.length) ? <Nodata/> : (
+              <Table hasHeader={false} isZebra={false}  hasBorder={false}
+                isLoading={this.state.isLoading}
+                loadingComponent={CustomLoading}
+                dataSource={this.state.blockList}
+                primaryKey="number"
+                language={T('zh-cn')}
+              >
+                <Table.Column width={100} cell={this.renderHeader.bind(this)}/>
+                <Table.Column title={T("高度")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
+                <Table.Column title={T("详情")} dataIndex="timestamp" width={200} cell={this.renderBlockInfo.bind(this)}/>
+                <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={100} cell={this.renderGas.bind(this)}/>
 
-            {/* <Table.Column title={T("时间")} dataIndex="timestamp" width={150} cell={this.renderTimeStamp.bind(this)}/>
-            <Table.Column title={T("Hash")} dataIndex="hash" width={150} cell={this.renderHash.bind(this)}/>
-            <Table.Column title={T("交易数")} dataIndex="txn" width={100} />
-            <Table.Column title={T("区块大小(B)")} dataIndex="size" width={100}/>
-            <Table.Column title={T("生产者")} dataIndex="miner" width={100} /> */}
-          </Table>
+                {/* <Table.Column title={T("时间")} dataIndex="timestamp" width={150} cell={this.renderTimeStamp.bind(this)}/>
+                <Table.Column title={T("Hash")} dataIndex="hash" width={150} cell={this.renderHash.bind(this)}/>
+                <Table.Column title={T("交易数")} dataIndex="txn" width={100} />
+                <Table.Column title={T("区块大小(B)")} dataIndex="size" width={100}/>
+                <Table.Column title={T("生产者")} dataIndex="miner" width={100} /> */}
+              </Table>
+            ) 
+          }
           
           <Button type='primary' 
                   style={{width: '100%', height: '40px', marginTop: '5px', background: 'rgb(239,240,255)', color: '#5c67f2'}}
