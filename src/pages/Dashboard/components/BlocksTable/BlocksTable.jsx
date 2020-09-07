@@ -11,9 +11,10 @@ import { T } from '../../../../utils/lang';
 import BlockList from '../../../BlockList';
 import eventProxy from '../../../../utils/eventProxy';
 import Nodata from '../../../../components/Common/Nodata';
+import block from './images/block.png';
+import './local.scss';
 
 
-const block = require('./images/middle_icon_BK.png');
 const indicator = (
   <div>
       <Icon type="loading" />
@@ -110,7 +111,7 @@ export default class BlocksTable extends Component {
   }
 
   renderHeader = () => {
-    return <img src={block}></img>
+    return <img src={block} width='32'></img>
   }
 
   renderBlockInfo = (value, index, record) => {
@@ -121,17 +122,23 @@ export default class BlocksTable extends Component {
           {T('出块时间 ')}{localTime}
         </div>
         <div>
-          {T('矿工 ') + ' '}<font style={{color: '#5c67f2'}}>{record.miner}</font>
-          {T(' 区块奖励 ') + ' '}<font style={{color: '#5c67f2'}}>{reward} OEX</font>
+          {T('矿工 ') + ' '}<font className='blockNumber'>{record.miner}</font>
+          {T(' 区块奖励 ') + ' '}<font className='blockNumber'>{reward} OEX</font>
         </div>
         <div>
-        {T('交易量 ') + ' '}<font style={{color: '#5c67f2'}}>{record.txn}{T('条')}</font>
+        {T('交易量 ') + ' '}<font className='blockNumber'>{record.txn}{T('条')}</font>
         </div>
       </div>);
   }
 
-  renderBlockNumber = (v) => {
-    return <a href={'/#/Block?h=' + v} style={{color: '#5c67f2'}}>{v}</a>;
+  renderBlockNumber = (v,index, record) => {
+    const localTime = utils.getValidTime(record.timestamp);
+    return (
+      <div>
+        <a href={'/#/Block?h=' + v} className='blockNumber' >{v}</a>
+        <p>{localTime}</p>
+      </div>
+      );
   }
 
   renderGas = (v) => {
@@ -151,20 +158,13 @@ export default class BlocksTable extends Component {
                 primaryKey="number"
                 language={T('zh-cn')}
               >
-                <Table.Column width={100} cell={this.renderHeader.bind(this)}/>
+                <Table.Column width={60} cell={this.renderHeader.bind(this)}/>
                 <Table.Column title={T("高度")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
                 <Table.Column title={T("详情")} dataIndex="timestamp" width={200} cell={this.renderBlockInfo.bind(this)}/>
                 <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={100} cell={this.renderGas.bind(this)}/>
-
-                {/* <Table.Column title={T("时间")} dataIndex="timestamp" width={150} cell={this.renderTimeStamp.bind(this)}/>
-                <Table.Column title={T("Hash")} dataIndex="hash" width={150} cell={this.renderHash.bind(this)}/>
-                <Table.Column title={T("交易数")} dataIndex="txn" width={100} />
-                <Table.Column title={T("区块大小(B)")} dataIndex="size" width={100}/>
-                <Table.Column title={T("生产者")} dataIndex="miner" width={100} /> */}
               </Table>
             ) 
           }
-          
           <Button type='primary' 
                   style={{width: '100%', height: '40px', marginTop: '5px', background: 'rgb(239,240,255)', color: '#5c67f2'}}
                   onClick={() => {

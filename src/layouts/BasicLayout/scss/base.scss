@@ -1,7 +1,8 @@
 $page-container-width: 90%;
-$base-color: #5c67f2;
-$ice-bottom-bg: #dedede;
-$ice-sub-text-color: #607d8b;
+$base-color: #23C9A7;
+$ice-bottom-bg: #C1C6CC;
+$ice-text-color: #5E768B;
+$ice-sub-text-color: #91A1AF;
 /* GLOBAL */
 html,
 body {
@@ -46,8 +47,8 @@ body {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      font-size: 28px;
-      color: $ice-sub-text-color;
+      font-size: 16px;
+      color: $ice-text-color;
       font-weight: bold;
       font-family: Helvetica, sans-serif;
     }
@@ -219,15 +220,15 @@ body {
     .ice-design-layout-footer {
       width: 100%;
       background-color: $ice-bottom-bg;
-      padding: 10px 10%;
+      padding: 0 10%;
       margin: 0 auto;
       .ice-design-layout-footer-body {
-        margin: 20px auto;
+        margin: 49px auto 17px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         .copyright {
-          margin: 30px 10px 0 0;
+          margin: 25px 10px 0 0;
           color: $ice-sub-text-color;
           line-height: 1.5;
           font-size: 12px;

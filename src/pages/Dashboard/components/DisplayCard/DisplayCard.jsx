@@ -98,111 +98,114 @@ class BlockTxLayout extends Component {
   render() {
     return (
       <IceContainer style={styles.container}>
-        <div style={styles.containMain}>
-          <Row style={{width: '100%', display: 'flex', justifyContent: 'space-around',  borderBottom: '1px solid rgba(255, 255, 255, 0.7)', lineHeight: 1.5, marginBottom: 20}}>
-            <Col span='4' style={styles.item}>
-              <Row align='center' style={styles.titleRow}>
-                  <img src={block}/>
-                  <div style={styles.title} className="title">
-                    {T('最新区块')}
+        <div className='containMain'>
+          <div className='borderContent'>
+            <div className='realContent'>
+              <Row className='content'>
+                <Col span='4' style={{...styles.item, textAlign:'left'}}>
+                  <Row align='center' style={styles.titleRow}>
+                    <img src={block}/>
+                    <div style={styles.title} className="title">
+                      {T('最新区块')}
+                    </div>
+                  </Row>
+                </Col>
+                <Col span='4' style={styles.item}>
+                  <Row align='center' style={styles.titleRow}>
+                    <img src={tx}/>
+                    <div style={styles.title} className="title">
+                      {T('交易信息')}
+                    </div>
+                  </Row>
+                </Col>
+                <Col span='4' style={styles.item}>
+                  <Row align='center' style={styles.titleRow}>
+                    <img src={producer}/>
+                    <div style={styles.title} className="title">
+                      {T('生产者')}
+                    </div>
+                  </Row>
+                </Col>
+                <Col span='4' style={{...styles.item, }}>
+                  <Row align='center' style={{...styles.titleRow, justifyContent: 'flex-end'}}>
+                    <img src={votes}/>
+                    <div style={styles.title} className="title">
+                      {T('投票数')}
+                    </div>
+                  </Row>
+                </Col>
+              </Row>
+              <Row style={{width: '100%',  display:'flex', justifyContent:'space-between'}}>
+                <Col span="4" style={{...styles.item, textAlign:'left'}}>
+                  <div style={styles.countTitle}>
+                  {T('最新区块高度')}
                   </div>
-                </Row>
-            </Col>
-            <Col span='4' style={styles.item}>
-              <Row align='center' style={styles.titleRow}>
-                <img src={tx}/>
-                <div style={styles.title} className="title">
-                  {T('交易信息')}
-                </div>
+                  <div className="count" style={styles.count}>
+                    {this.state.curBlockInfo.number}
+                  </div>
+                  
+                  <div style={styles.smallCountTitle}>
+                  {T('不可逆区块高度')}
+                  </div>
+
+                  <div className="count" style={styles.smallCount}>
+                    {this.state.irreversible.bftIrreversible}
+                  </div>
+                </Col>
+                <Col span="4" style={styles.item}>
+                  
+                  <div style={styles.countTitle}>
+                  {T('最新区块的TPS')}
+                  </div>
+                  <div className="count" style={styles.count}>
+                    {this.state.curTps} TPS
+                  </div>
+                  
+                  <div style={styles.smallCountTitle}>
+                  {T('最新区块交易量')}
+                  </div>
+
+                  <div className="count" style={styles.smallCount}>
+                    {this.state.txNum} Txns
+                  </div>
+                </Col>
+                <Col span="4" style={styles.item}>
+                  
+                  <div style={styles.countTitle}>
+                  {T('注册为生产者的节点数量')}
+                  </div>
+                  <div className="count" style={styles.count}>
+                    {this.state.curProducerList.length}
+                  </div>
+                  
+                  <div style={styles.smallCountTitle}>
+                  {T('出块节点数量')}
+                  </div>
+
+                  <div className="count" style={styles.smallCount}>
+                    {this.state.activeProducers.length}
+                  </div>
+                </Col>
+                <Col span="4" style={{...styles.item, textAlign: 'right'}}>
+                  
+                  <div style={styles.countTitle}>
+                  {T('总投出的票数')}
+                  </div>
+                  <div className="count" style={styles.count}>
+                    {this.state.latestEpchoInfo.totalQuantity} OEX
+                  </div>
+                  
+                  <div style={styles.smallCountTitle}>
+                  {T('出块节点获得的总票数')}
+                  </div>
+
+                  <div className="count" style={styles.smallCount}>
+                    {this.state.latestEpchoInfo.activatedTotalQuantity} OEX
+                  </div>
+                </Col>
               </Row>
-            </Col>
-            <Col span='4' style={styles.item}>
-              <Row align='center' style={styles.titleRow}>
-                <img src={producer}/>
-                <div style={styles.title} className="title">
-                  {T('生产者')}
-                </div>
-              </Row>
-            </Col>
-            <Col span='4' style={styles.item}>
-              <Row align='center' style={styles.titleRow}>
-                <img src={votes}/>
-                <div style={styles.title} className="title">
-                  {T('投票数')}
-                </div>
-              </Row>
-            </Col>
-          </Row>
-          <Row style={{width: '100%',  display:'flex', justifyContent:'space-around'}}>
-            <Col span="4" style={styles.item}>
-              <div style={styles.countTitle}>
-              {T('最新区块高度')}
-              </div>
-              <div className="count" style={styles.count}>
-                {this.state.curBlockInfo.number}
-              </div>
-              
-              <div style={styles.smallCountTitle}>
-              {T('不可逆区块高度')}
-              </div>
-
-              <div className="count" style={styles.smallCount}>
-                {this.state.irreversible.bftIrreversible}
-              </div>
-            </Col>
-            <Col span="4" style={styles.item}>
-              
-              <div style={styles.countTitle}>
-              {T('最新区块的TPS')}
-              </div>
-              <div className="count" style={styles.count}>
-                {this.state.curTps} TPS
-              </div>
-              
-              <div style={styles.smallCountTitle}>
-              {T('最新区块交易量')}
-              </div>
-
-              <div className="count" style={styles.smallCount}>
-                {this.state.txNum} Txns
-              </div>
-            </Col>
-            <Col span="4" style={styles.item}>
-              
-              <div style={styles.countTitle}>
-              {T('注册为生产者的节点数量')}
-              </div>
-              <div className="count" style={styles.count}>
-                {this.state.curProducerList.length}
-              </div>
-              
-              <div style={styles.smallCountTitle}>
-              {T('出块节点数量')}
-              </div>
-
-              <div className="count" style={styles.smallCount}>
-                {this.state.activeProducers.length}
-              </div>
-            </Col>
-            <Col span="4" style={styles.item}>
-              
-              
-              <div style={styles.countTitle}>
-              {T('总投出的票数')}
-              </div>
-              <div className="count" style={styles.count}>
-                {this.state.latestEpchoInfo.totalQuantity} OEX
-              </div>
-              
-              <div style={styles.smallCountTitle}>
-              {T('出块节点获得的总票数')}
-              </div>
-
-              <div className="count" style={styles.smallCount}>
-                {this.state.latestEpchoInfo.activatedTotalQuantity} OEX
-              </div>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </div>
       </IceContainer>
     );
@@ -217,7 +220,6 @@ const styles = {
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
-    border: '1px solid rgba(8, 10, 32, 0.7)', 
     borderRadius: '5px',
   },
   containMain:{
@@ -225,7 +227,7 @@ const styles = {
     width: '100%', 
     borderRadius: '5px',
     padding: '0 70px', 
-    border: '10px solid rgba(255, 255, 255, 0.7)'
+    border: '2px solid rgba(35, 201, 167, 0.10196078431372549)', 
   },
   item: {
     height: '100%', 
@@ -239,11 +241,12 @@ const styles = {
   },
   title: {
     color: '#fff',
-    fontSize: '18px',
+    fontSize: '16px',
     marginLeft: '8px'
   },
   countTitle: {
     fontSize: '14px', 
+    marginTop:'8px',
     color: '#fff'
   },
   count: {
@@ -254,10 +257,10 @@ const styles = {
   },
   smallCountTitle: {
     fontSize: '14px', 
-    color: '#b1b5eb'
+    color: '#fff'
   },
   smallCount: {
-    color: '#b1b5eb',
+    color: '#fff',
     fontSize: '24px',
     fontWeight: 'bold',
     marginBottom: '28px',

@@ -1,3 +1,5 @@
+@import '../../../../global.scss';
+
 .display-card-container {
   width: 100%;
   background-color: #080a20;
@@ -10,15 +12,39 @@
     color: #bebebe;
   }
 }
+.containMain{
+  width: 100%;
+  border-Radius: 34px;
+  border: 2px solid rgba(35, 201, 167, 0.1); 
+  padding: 8px;
+}
+.borderContent{
+  box-sizing: content-box;
+  border: 8px solid rgba(35, 201, 167, 0.36470588235294116);
+  opacity: 1;
+  border-radius: 30px;
+}
+.content{
+  width: 100%;
+  display: flex; 
+  justify-content: space-between; 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  margin-bottom: 40px;
+}
+.realContent{
+  background: $base-color;
+  border-radius: 20px;
+  padding: 45px 80px;
+}
 @media screen and (max-width: 100%) {
   .display-card-container {
     background: rgb(15, 15, 15);
     .count {
-      color: #666;
+      color: #fff;
     }
     .title,
     .desc {
-      color: #999;
+      color:  #fff;;
     }
   }
 }
