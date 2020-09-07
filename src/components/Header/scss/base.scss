@@ -1,8 +1,19 @@
+@import "../../../global.scss";
+
 .ice-design-layout-header {
   padding: 0 0;
   margin: 0px auto;
   background-color: white;
+  border-bottom: 3px solid $base-color;
+}
+.ice-menu .ice-menu-item{
+  overflow: unset;
+}
+.navlinks{
+  &:hover{
+    color: $base-color !important;
+  }
 }
 .select{
-  color: red;
+  color: $base-color !important;
 }

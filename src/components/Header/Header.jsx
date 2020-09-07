@@ -21,6 +21,7 @@ import * as utils from '../../utils/utils';
 import * as constant from '../../utils/constant';
 import { T, setLang } from '../../utils/lang';
 import styles from './scss/base.scss';
+import tabIcon from './tabIcon.png';
 
 export const history = createHashHistory();
 const keyMap = {'dashboard': '0', 'Block': '1', 'Transaction': '2', 'assetOperator': '3', 'contractDev': '4', 'producerList': '5'};
@@ -179,9 +180,9 @@ export default class Header extends PureComponent {
                           </SubMenu>);
                 }
                 return (
-                  <MenuItem key={idx}>
+                  <MenuItem key={idx} style={{display: 'flex', justifyContent: 'center'}}>
                     {linkProps.to ? (
-                      <NavLink {...linkProps} activeClassName='select'>
+                      <NavLink {...linkProps} className='navlinks' activeClassName='select'>
                         {!isMobile ? T(nav.name) : null}
                       </NavLink>
                     ) : (
@@ -189,6 +190,7 @@ export default class Header extends PureComponent {
                         {!isMobile ? T(nav.name) : null}
                       </a>
                     )}
+                    <img src={tabIcon} style={{position:'absolute', bottom: '-16px', width:'15px', display: pathname===linkProps.to ? 'block' : 'none'}} />
                   </MenuItem>
                 );
               })}
