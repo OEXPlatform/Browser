@@ -9,11 +9,12 @@ import * as oexchain from 'oex-web3'
 import ReactJson from 'react-json-view';
 import TransactionList from '../../TransactionList';
 import { T } from '../../utils/lang';
+import searchImg from './images/Search_icon.png';
+
 
 const { Row, Col } = Grid;
 
-const searchImg = require('./images/Search_icon.png');
-export default class TransactionTable extends Component {
+class TransactionTable extends Component {
   static displayName = 'TransactionTable';
 
   constructor(props) {
@@ -166,3 +167,6 @@ const COLOR_OPTION = {
   numberColor: '#ff8c00',
   stringColor: 'green'
 };
+
+export default TransactionTable;
+

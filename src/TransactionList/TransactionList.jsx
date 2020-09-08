@@ -397,24 +397,26 @@ export default class TransactionList extends Component {
             </IceContainer>
               :
             <IceContainer className="tab-card" title={T("交易")}>
-              <Table primaryKey="txHash" isZebra={false}  hasBorder={false}
-                language={T('zh-cn')}
-                dataSource={this.state.transactions}
-              >
-                <Table.Column title={T("交易哈希")} dataIndex="txHash" width={80} cell={this.renderHash.bind(this)}/>
-                <Table.Column title={T("区块哈希")} dataIndex="blockHash" width={80} cell={this.renderHash.bind(this)}/>
-                <Table.Column title={T("区块高度")} dataIndex="blockNumber" width={80}/>
-                <Table.Column title={T("发起账户")} dataIndex="parsedActions" width={100} cell={this.renderFromAccount.bind(this)}/>
-                <Table.Column title={T("签名账户")} dataIndex="parsedActions" width={100} cell={this.renderSignAccount.bind(this)}/>
-                <Table.Column title={T("付款账户")} dataIndex="parsedActions" width={100} cell={this.renderPayerAccount.bind(this)}/>
-                <Table.Column title={T("类型")} dataIndex="parsedActions" width={100} cell={this.renderActionType.bind(this)}/>
-                <Table.Column title={T("内部交易")} dataIndex="innerActions" width={80} cell={this.renderInnerActions.bind(this)} />
-                <Table.Column title={T("详情")} dataIndex="parsedActions" width={100} cell={this.renderDetailInfo.bind(this)} />
-                <Table.Column title={T("结果")} dataIndex="parsedActions" width={80} cell={this.renderResult.bind(this)} />
-                <Table.Column title={T("总手续费")} dataIndex="parsedActions" width={100} cell={this.renderGasFee.bind(this)} />
-                <Table.Column title={T("手续费分配详情")} dataIndex="parsedActions" width={150} cell={this.renderGasAllot.bind(this)} />
+              {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
+                <Table primaryKey="txHash" isZebra={false}  hasBorder={false}
+                  language={T('zh-cn')}
+                  dataSource={this.state.transactions}
+                >
+                  <Table.Column title={T("交易哈希")} dataIndex="txHash" width={80} cell={this.renderHash.bind(this)}/>
+                  <Table.Column title={T("区块哈希")} dataIndex="blockHash" width={80} cell={this.renderHash.bind(this)}/>
+                  <Table.Column title={T("区块高度")} dataIndex="blockNumber" width={80}/>
+                  <Table.Column title={T("发起账户")} dataIndex="parsedActions" width={100} cell={this.renderFromAccount.bind(this)}/>
+                  <Table.Column title={T("签名账户")} dataIndex="parsedActions" width={100} cell={this.renderSignAccount.bind(this)}/>
+                  <Table.Column title={T("付款账户")} dataIndex="parsedActions" width={100} cell={this.renderPayerAccount.bind(this)}/>
+                  <Table.Column title={T("类型")} dataIndex="parsedActions" width={100} cell={this.renderActionType.bind(this)}/>
+                  <Table.Column title={T("内部交易")} dataIndex="innerActions" width={80} cell={this.renderInnerActions.bind(this)} />
+                  <Table.Column title={T("详情")} dataIndex="parsedActions" width={100} cell={this.renderDetailInfo.bind(this)} />
+                  <Table.Column title={T("结果")} dataIndex="parsedActions" width={80} cell={this.renderResult.bind(this)} />
+                  <Table.Column title={T("总手续费")} dataIndex="parsedActions" width={100} cell={this.renderGasFee.bind(this)} />
+                  <Table.Column title={T("手续费分配详情")} dataIndex="parsedActions" width={150} cell={this.renderGasAllot.bind(this)} />
 
-              </Table>
+                </Table>
+              )}
             </IceContainer>
         
         }

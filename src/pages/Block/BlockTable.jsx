@@ -8,11 +8,13 @@ import { Feedback } from '@icedesign/base';
 import BigNumber from "bignumber.js";
 import TransactionList from '../../TransactionList';
 import { T } from '../../utils/lang';
+import './local.scss';
+import {withRouter, Route, Switch} from 'react-router-dom';
+import searchImg from './images/Search_icon.png';
 
 const { Row, Col } = Grid;
-const searchImg = require('./images/Search_icon.png');
 
-export default class BlockTable extends Component {
+class BlockTable extends Component {
   static displayName = 'BlockTable';
 
   constructor(props) {
@@ -100,26 +102,45 @@ export default class BlockTable extends Component {
   }
 
   render() {
-    return (
-      <div style={styles.all}> 
-        <IceContainer style={styles.banner}>
-          <Row justify='space-around' style={{width: '80%', height: '50px', backgroundColor: '#5c67f2', alignItems: 'center'}}>
-            <Input style={{borderRadius: '10px', marginLeft: '-1.5%', padding: '7px 5px', width: '98%', height: '80%'}} 
-                   placeholder={T("高度/哈希")} onChange={this.onBlockChange.bind(this)} onPressEnter={this.onSearch.bind(this)} defaultValue={this.state.number}/>
-            <Button text style={{marginLeft: '-9%', marginTop: '5px'}} onClick={this.onSearch.bind(this)}><img style={{width: '50%', height: '70%'}}  src={searchImg}/></Button>                   
-          </Row>  
-        </IceContainer>
 
-        <IceContainer style={styles.container}>
-          <h4 style={styles.title}>{T('区块原始信息')}</h4>
-          <ReactJson displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
-            src={this.state.blockInfo}
-          />
-        </IceContainer>
-        
-        <IceContainer style={{...styles.container, margin: '0 0 30% 0'}}>
-          <TransactionList txFrom={this.state.txFrom}/>
-        </IceContainer>
+    const {match} = this.props;
+
+    console.log(match);
+
+    return (
+      <div className={match.path.includes('Block') ? 'contain-bk' : 'contain-tx'} style={styles.all}> 
+        <div className='mainContainer'>
+          <Row className='searchContain'>
+            <Button className='searchIcon' text onClick={this.onSearch.bind(this)}><img style={{width: '50%', height: '70%'}}  src={searchImg}/></Button>                   
+            <Input className='search' 
+                  placeholder={T("高度/哈希")} onChange={this.onBlockChange.bind(this)} onPressEnter={this.onSearch.bind(this)} defaultValue={this.state.number}/>
+          </Row>  
+
+          <IceContainer className='block-container'>
+            <h4 style={styles.title}>{T('区块原始信息')}</h4>
+            <ReactJson displayDataTypes={false} theme='ocean' style={{padding: '30px', backgroundColor: 'transparent'}}
+              src={this.state.blockInfo}
+            />
+          </IceContainer>
+          
+          <IceContainer style={{borderRadius: 20, marginTop: 20}}>
+            <TransactionList txFrom={this.state.txFrom}/>
+          </IceContainer>
+
+
+          <Switch>
+            <Route path='/Transaction' render={() => {
+                return (
+                  <IceContainer className='block-container'>
+                    <h4 style={styles.title}>{T('交易Receipt信息')}</h4>
+                    <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
+                      src={this.state.txReceiptData}
+                    />
+                  </IceContainer>
+                )
+            }}/>
+          </Switch>
+        </div>
       </div>
     );
   }
@@ -128,39 +149,22 @@ export default class BlockTable extends Component {
 const styles = {
     all: {
       height: 'auto',
-      backgroundColor: '#f5f6fa',
       display: 'flex',
       justifyContent: 'start',
       flexDirection: 'column',
       alignItems: 'center'
-    },
-    banner: {
-      width: '100%', 
-      height: '310px', 
-      backgroundColor: '#080a20',
-      display: 'flex',
-      justifyContent: 'start',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    container: {
-      width: '78%', 
-      margin: '-240px 0 20px 0',
-      padding: '0',
-      display: 'flex',
-      justifyContent: 'start',
-      flexDirection: 'column',
     },
     title: {
       margin: '0',
-      padding: '15px 20px',
+      padding: '15px 0',
       fonSize: '16px',
       textOverflow: 'ellipsis',
       overflow: 'hidden',
       whiteSpace: 'nowrap',
-      color: 'rgba(0,0,0,.85)',
+      color: 'rgba(255,255,255,.85)',
       fontWeight: '500',
-      borderBottom: '1px solid #eee',
+      borderBottom: '1px solid rgba(255,255,255,.21)',
+      margin:'0 30px'
     },
     summary: {
       padding: '20px',
@@ -176,3 +180,5 @@ const styles = {
       width: '150px',
     },
   };
+
+  export default withRouter(BlockTable);

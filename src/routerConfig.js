@@ -39,12 +39,18 @@ import RawTxConstructor from './pages/RawTxConstructor';
 import AutoTest from './pages/AutoTest';
 import Study from './pages/Study';
 import Dapp from './pages/Dapp';
+import Download from './pages/Download';
 
 
 const routerConfig = [
   {
     path: '/exception/403',
     component: Forbidden,
+    layout: BasicLayout,
+  },
+  {
+    path: '/download',
+    component: Download,
     layout: BasicLayout,
   },
   {
@@ -145,7 +151,7 @@ const routerConfig = [
   {
     path: '/Transaction',
     layout: BasicLayout,
-    component: Transaction,
+    component: Block,
   },
   {
     path: '/assetSearch',

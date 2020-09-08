@@ -1,0 +1,6 @@
+@import '../../global.scss';
+
+.layout{
+  background: url('./images/download-right-bg.png') no-repeat top right $ice-background-primary; 
+  height: calc(100vh - 60px);
+}
