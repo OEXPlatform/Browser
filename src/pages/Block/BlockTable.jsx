@@ -11,6 +11,7 @@ import { T } from '../../utils/lang';
 import './local.scss';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import searchImg from './images/Search_icon.png';
+import cn from 'classnames';
 
 const { Row, Col } = Grid;
 
@@ -106,36 +107,51 @@ class BlockTable extends Component {
     const {match} = this.props;
 
     console.log(match);
+    const isBlock = Boolean(match.path.includes('Block'))
+
+    const subClass = isBlock ? 'bk' : 'tx';
 
     return (
-      <div className={match.path.includes('Block') ? 'contain-bk' : 'contain-tx'} style={styles.all}> 
+      <div className={cn('contain', subClass)} style={styles.all}> 
         <div className='mainContainer'>
           <Row className='searchContain'>
             <Button className='searchIcon' text onClick={this.onSearch.bind(this)}><img style={{width: '50%', height: '70%'}}  src={searchImg}/></Button>                   
-            <Input className='search' 
+            <Input className={cn('search', subClass)} 
                   placeholder={T("高度/哈希")} onChange={this.onBlockChange.bind(this)} onPressEnter={this.onSearch.bind(this)} defaultValue={this.state.number}/>
           </Row>  
 
-          <IceContainer className='block-container'>
-            <h4 style={styles.title}>{T('区块原始信息')}</h4>
-            <ReactJson displayDataTypes={false} theme='ocean' style={{padding: '30px', backgroundColor: 'transparent'}}
+          <IceContainer className={cn('block-container', subClass)}>
+            <h4 className={cn('title', subClass)} >{T('区块原始信息')}</h4>
+            <ReactJson displayDataTypes={false} theme={isBlock ? 'ocean' : 'rjv-default'} style={{padding: '30px', backgroundColor: 'transparent'}}
               src={this.state.blockInfo}
             />
           </IceContainer>
           
-          <IceContainer style={{borderRadius: 20, marginTop: 20}}>
-            <TransactionList txFrom={this.state.txFrom}/>
-          </IceContainer>
 
 
           <Switch>
+            <Route path='/Block' render={() => {
+              return (
+                <IceContainer style={{borderRadius: 20, marginTop: 20}}>
+                  <TransactionList txFrom={this.state.txFrom}/>
+                </IceContainer>
+              )
+            }} />
             <Route path='/Transaction' render={() => {
                 return (
-                  <IceContainer className='block-container'>
-                    <h4 style={styles.title}>{T('交易Receipt信息')}</h4>
-                    <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
-                      src={this.state.txReceiptData}
-                    />
+                  <IceContainer className={cn('block-container', subClass)}>
+                    <IceContainer>
+                      <h4 className={cn('title', subClass)}>{T('交易原始信息')}</h4>
+                      <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
+                        src={this.state.txRawData}
+                      />
+                    </IceContainer>
+                    <IceContainer>
+                      <h4 className={cn('title', subClass)}>{T('交易Receipt信息')}</h4>
+                      <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
+                        src={this.state.txReceiptData}
+                      />
+                    </IceContainer>
                   </IceContainer>
                 )
             }}/>

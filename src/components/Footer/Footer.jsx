@@ -41,26 +41,26 @@ export default class Footer extends PureComponent {
             </div>
           </div>
           <div className="siteService">
-            <div class='listContain'>
-              <div class='listTitle'>{T('工具')}</div>
+            <div className='listContain'>
+              <div className='listTitle'>{T('工具')}</div>
               <a href='#'>{T('客户端下载')}</a> 
               <a href='#'>{T('官方人员验证通道')}</a> 
               <a href='#'>{T('API文档')}</a> 
             </div>
-            <div class='listContain'>
-              <div class='listTitle'>{T('服务')}</div>
+            <div className='listContain'>
+              <div className='listTitle'>{T('服务')}</div>
               <a href='#'>{T('费率')}</a> 
               <a href='#'>{T("帮助中心")}</a> 
               <a href='#'>{T("OEX介绍")}</a> 
             </div>
-            <div class='listContain'>
-              <div class='listTitle'>{T('支持')}</div>
+            <div className='listContain'>
+              <div className='listTitle'>{T('支持')}</div>
               <a href='#'>{T('上币申请')}</a> 
               <a href='#'>{T('机构与招商账户')}</a> 
               <a href='#'>{T('广告申请合作')}</a> 
             </div>
-            <div class='listContain'>
-              <div class='listTitle'>{T('条款说明')}</div>
+            <div className='listContain'>
+              <div className='listTitle'>{T('条款说明')}</div>
               <a href='#'>{T('用户协议')}</a> 
               <a href='#'>{T('隐私条款')}</a> 
               <a href='#'>{T('交易规则')}</a> 

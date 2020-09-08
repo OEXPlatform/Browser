@@ -112,7 +112,7 @@ export default class Header extends PureComponent {
     this.setState({
       current: null
     });
-    history.push('/downloadApp');
+    history.push('/download');
   }
 
   render() {
@@ -207,7 +207,10 @@ export default class Header extends PureComponent {
             {T('当前连接的节点')}:{this.state.nodeInfo}, ChainId:{this.state.chainId}
           </Balloon>
           &nbsp;&nbsp;
-          <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.downloadAPP.bind(this)}><Icon type="account" />{T('钱包下载')}</Button>
+          <div style={{display: 'flex', justifyContent: 'center', position:'relative', marginLeft: '30px'}}>
+            <NavLink to='/download' style={{color: '#808080'}} activeClassName='select' >{T('钱包下载')}</NavLink>
+            <img src={tabIcon} style={{position:'absolute', bottom: '-26px', width:'15px', display: pathname === '/download' ? 'block' : 'none'}} />
+          </div>
           {/* <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.manageAccount.bind(this)}><Icon type="account" />{T('账号管理')}</Button> */}
           &nbsp;&nbsp;
           <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.onChangeLanguage.bind(this)}>{this.state.curLang}</Button>
