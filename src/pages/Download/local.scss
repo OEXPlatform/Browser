@@ -1,0 +1,39 @@
+@import '../../global.scss';
+
+.layout{
+  background: url('./images/download-bottom-bg.png') no-repeat bottom center $ice-background-secondary; 
+  height: calc(100vh - 60px);
+  position: relative;
+  display:flex;
+  align-items: center;
+  .dotBg{
+    position: absolute;
+    top: 20px; 
+    left: 18px;
+  }
+  .siteBg{
+    position: absolute;
+    top: 0px; 
+    right: 0px;
+  }
+  .mainContent{
+    position: absolute;
+    left: 16%;
+  }
+  .download{
+    margin-left: 125px;
+    margin-top: 44px;
+    .downloadItem{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 30px;
+      span{
+        color: $ice-text-color;
+        font-size: 18px;
+        margin-left: 23px;
+        font-weight: 500;
+      }
+    }
+  }
+}

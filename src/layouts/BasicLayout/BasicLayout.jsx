@@ -50,6 +50,8 @@ const getRedirect = (item) => {
 };
 asideMenuConfig.forEach(getRedirect);
 
+const withoutFooterPath = ['/download'];
+
 // 设置默认的皮肤配置，支持 dark 和 light 两套皮肤配置
 const theme = typeof THEME === 'undefined' ? 'dark' : THEME;
 @withRouter
@@ -222,7 +224,7 @@ class BasicLayout extends Component {
   };
 
   render() {
-    const { location, profile = {} } = this.props;
+    const { location, profile = {}, match } = this.props;
     const { pathname } = location;
 
     return (
@@ -268,7 +270,9 @@ class BasicLayout extends Component {
             </Switch>
           </Layout.Main>
         </Layout.Section>
-        <Footer />
+        {!withoutFooterPath.includes(pathname) && (
+          <Footer />
+        )}
       </Layout>
     );
   }
@@ -301,5 +305,5 @@ const withLogoutReducer = injectReducer({
 export default compose(
   withProfileReducer,
   withLogoutReducer,
-  withConnect
+  withConnect,
 )(BasicLayout);
