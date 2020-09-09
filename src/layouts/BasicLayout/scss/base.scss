@@ -3,6 +3,7 @@ $base-color: #23C9A7;
 $ice-bottom-bg: #C1C6CC;
 $ice-text-color: #5E768B;
 $ice-sub-text-color: #91A1AF;
+$ice-disabled-color: rgba(31, 35, 64, 0.1);
 /* GLOBAL */
 html,
 body {
@@ -17,9 +18,18 @@ body {
 .next-btn.next-btn-secondary
 { 
   background-color: #fff;
-  // border-color: $base-color;
-  // color: $base-color;
 }
+.next-btn.next-btn-primary{ 
+    background-color: $base-color;
+    &:disabled{
+      background-color: $ice-disabled-color;
+      color: $base-color;
+    }
+}
+.next-table th{
+  background: #DEE4EC;
+}
+
 .next-pagination-item.next-current {
   background: $base-color;
 }

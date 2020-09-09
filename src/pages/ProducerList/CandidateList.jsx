@@ -9,6 +9,9 @@ import * as utils from '../../utils/utils';
 import { T } from '../../utils/lang';
 import * as Constant from '../../utils/constant';
 import TxSend from "../TxSend";
+import './local.scss';
+import leftBg from './images/dot-left-bg.png';
+import Nodata from '../../components/Common/Nodata';
 
 const VOTER = 1;
 const PRODUCER = 2;
@@ -534,60 +537,70 @@ export default class CandidateList extends Component {
   }
   render() {
     return (
-      <div sytle={styles.all}>
-        <IceContainer style={styles.banner}/>
-        <IceContainer style={{...styles.table, width: '78%', height: '80%', margin: '-290px 11% 20px 11%' }}>
-          <Row justify="start" align='center' style={{marginBottom: '10px'}}>
-            <Button style={styles.btn} type="primary" onClick={this.updateStatus.bind(this)}>
-            {T('刷新')}
-            </Button>
-            {/* <Button style={styles.btn} type="primary" onClick={this.vote.bind(this)} disabled={this.state.bUnRegProducer}>
-            {T('投票')}
-            </Button>
-            <Button style={styles.btn} type="secondary" onClick={this.registerProducer.bind(this)}>
-            {T('注册候选者')}
-            </Button>
-            <Button style={styles.btn} type="secondary" onClick={this.updateProducer.bind(this)} disabled={!this.state.bMyProducer || this.state.bUnRegProducer}>
-            {T('更新候选者')}
-            </Button>
-            <Button style={styles.btn} type="secondary" onClick={this.unRegisterProducer.bind(this)} disabled={!this.state.bMyProducer || this.state.bUnRegProducer}>
-            {T('注销候选者')}
-            </Button>
-            <Button style={styles.btn} type="secondary" onClick={this.refundReposit.bind(this)} disabled={!this.state.bMyProducer || !this.state.bUnRegProducer}>
-            {T('取回抵押金')}
-            </Button> */}
-              {/* &nbsp;&nbsp;
-            <Button type="primary" onClick={this.getReward.bind(this)} disabled={!this.state.bMyProducer || this.state.bUnRegProducer}>
-            {T('提取奖励')}
-            </Button> */}
-              <b>{T('当前周期')}:{this.state.curEpoch}, {T('一个周期时长')}:{this.state.duration}</b>
-          </Row>
-          <Row style={{marginBottom: '10px'}}>
-            <Table primaryKey="name" language={T('zh-cn')} 
-              isZebra={false}  hasBorder={false} 
-              dataSource={this.state.producerList}
-              rowSelection={this.state.rowSelection}
-              onSort={this.onSort.bind(this)}
-            >
-              <Table.Column title={T("候选者账号")} dataIndex="name" width={100} cell={this.nameRender.bind(this)} />
-              <Table.Column title="URL" dataIndex="url" width={80} />
-              <Table.Column title={T("状态")} dataIndex="type" width={100} cell={this.typeRender.bind(this)}/>
-              <Table.Column title={T("抵押票数")} dataIndex="quantity" width={90} sortable />
-              <Table.Column title={T("总投票数")} dataIndex="totalQuantity" width={60} sortable />
-              <Table.Column title={T("最近一次DPOS相关操作的区块高度")} dataIndex="number" width={130} cell={this.numberRender.bind(this)} />
-              <Table.Column title={T("实出块数")} dataIndex="actualCounter" width={160} sortable cell={this.counterRender.bind(this)} />
-              <Table.Column title={T("应出块数")} dataIndex="shouldCounter" width={130} sortable cell={this.shouldCounterRender.bind(this)}  />
-              <Table.Column title={T("我的投票")} dataIndex="name" width={100} cell={this.renderMyVote.bind(this)} />
-            </Table>
-          </Row>
-          <Row align='center'>
-            <img src={pieceImg} style={{ marginRight: '5px' }}/>{T("可出块节点")}
-            <img src={isapieceofImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("正在出块的节点")}
-            <img src={myImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("我的节点")}
-            <img src={alternativenodesImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("备选节点")}
-          </Row>
-        </IceContainer>
-
+      <div className='contain' sytle={styles.all}>
+        <div className='mainContainer'> 
+          <div className='leftBg'><img src={leftBg} width='519'/></div>
+          <div className='cicles'>
+            <div class='titleSign'></div>
+            <div className='titles'>
+              <div className='mainText'>第{this.state.curEpoch}周期</div>
+              <div className='subText'>{T('一个周期时长')}:{this.state.duration}</div>
+            </div>
+          </div>
+          <IceContainer className='listContain' style={{...styles.table}}>
+            <Row justify="space-between" align='center' style={{borderRadius: 20, padding: '20px'}}>
+              <Button type="primary" onClick={this.updateStatus.bind(this)} style={styles.btn}>
+                <Icon type="refresh" />{T('刷新')}
+              </Button>
+              <Row align='center'>
+                <img src={pieceImg} style={{ marginRight: '5px' }}/>{T("可出块节点")}
+                <img src={isapieceofImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("正在出块的节点")}
+                <img src={myImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("我的节点")}
+                <img src={alternativenodesImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("备选节点")}
+              </Row>
+              {/* <Button style={styles.btn} type="primary" onClick={this.vote.bind(this)} disabled={this.state.bUnRegProducer}>
+              {T('投票')}
+              </Button>
+              <Button style={styles.btn} type="secondary" onClick={this.registerProducer.bind(this)}>
+              {T('注册候选者')}
+              </Button>
+              <Button style={styles.btn} type="secondary" onClick={this.updateProducer.bind(this)} disabled={!this.state.bMyProducer || this.state.bUnRegProducer}>
+              {T('更新候选者')}
+              </Button>
+              <Button style={styles.btn} type="secondary" onClick={this.unRegisterProducer.bind(this)} disabled={!this.state.bMyProducer || this.state.bUnRegProducer}>
+              {T('注销候选者')}
+              </Button>
+              <Button style={styles.btn} type="secondary" onClick={this.refundReposit.bind(this)} disabled={!this.state.bMyProducer || !this.state.bUnRegProducer}>
+              {T('取回抵押金')}
+              </Button> */}
+                {/* &nbsp;&nbsp;
+              <Button type="primary" onClick={this.getReward.bind(this)} disabled={!this.state.bMyProducer || this.state.bUnRegProducer}>
+              {T('提取奖励')}
+              </Button> */}
+                
+            </Row>
+            <Row style={{marginBottom: '10px'}}>
+              <Table primaryKey="name" language={T('zh-cn')} 
+                isZebra={false}  hasBorder={false} 
+                dataSource={this.state.producerList}
+                rowSelection={this.state.rowSelection}
+                onSort={this.onSort.bind(this)}
+                emptyContent={<Nodata />}
+              >
+                <Table.Column title={T("候选者账号")} dataIndex="name" width={100} cell={this.nameRender.bind(this)} />
+                <Table.Column title="URL" dataIndex="url" width={80} />
+                <Table.Column title={T("状态")} dataIndex="type" width={100} cell={this.typeRender.bind(this)}/>
+                <Table.Column title={T("抵押票数")} dataIndex="quantity" width={90} sortable />
+                <Table.Column title={T("总投票数")} dataIndex="totalQuantity" width={60} sortable />
+                <Table.Column title={T("最近一次DPOS相关操作的区块高度")} dataIndex="number" width={130} cell={this.numberRender.bind(this)} />
+                <Table.Column title={T("实出块数")} dataIndex="actualCounter" width={160} sortable cell={this.counterRender.bind(this)} />
+                <Table.Column title={T("应出块数")} dataIndex="shouldCounter" width={130} sortable cell={this.shouldCounterRender.bind(this)}  />
+                <Table.Column title={T("我的投票")} dataIndex="name" width={100} cell={this.renderMyVote.bind(this)} />
+              </Table>
+            </Row>
+            
+          </IceContainer>
+        </div>
         <Dialog language={T('zh-cn')}
           visible={this.state.voteVisible}
           title={T("投票")}
@@ -696,7 +709,8 @@ const styles = {
     display: 'flex',
     justifyContent: 'start',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop:'334px',
   },
   banner: {
     width: '100%', 
@@ -725,8 +739,8 @@ const styles = {
     width: '150px',
   },
   btn: {
-    borderRadius: '2px',
     marginRight: '20px',
+    borderRadius: '20px'
   },
   inputBoder: {
     borderBottom: '1px solid #dbdbdb',

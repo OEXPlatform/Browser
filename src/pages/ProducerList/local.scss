@@ -1,0 +1,51 @@
+@import '../../global.scss';
+
+.contain{
+    background: url('./images/dot-bg.png') no-repeat top right $ice-background-primary;
+    position: relative;
+    padding-top: 18px;
+    .leftBg{
+        margin-left: 38px;
+    }
+}
+.mainContainer{
+    width: 78%;
+    max-width:1364px;
+    margin: 0 auto;
+    border-radius:20px;
+    padding-bottom: 40px
+}
+.cicles{
+    height: 52px;
+    padding-left:38px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .titleSign{
+        height: 52px; 
+        width: 6px;
+        border-radius: 5px;
+        background-color: $base-color;
+        margin-right:24px;
+    }
+    .titles{
+        .mainText{
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        .subText{
+            font-size: 12px;
+            color: $ice-sub-text-color;
+        }
+    }
+}
+.listContain{
+    border-radius: 20px !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+
+

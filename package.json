@@ -89,6 +89,9 @@
     "entry": "src/index.js",
     "localization": true
   },
+  "themeConfig": {
+    "primaryColor": "#23C9A7"
+  },
   "scaffoldConfig": {
     "name": "oexchain-blockchain",
     "title": "oexchain Blockchain",
