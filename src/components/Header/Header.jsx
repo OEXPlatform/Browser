@@ -22,6 +22,7 @@ import * as constant from '../../utils/constant';
 import { T, setLang } from '../../utils/lang';
 import styles from './scss/base.scss';
 import tabIcon from './tabIcon.png';
+import language from '../images/language.png'
 
 export const history = createHashHistory();
 const keyMap = {'dashboard': '0', 'Block': '1', 'Transaction': '2', 'assetOperator': '3', 'contractDev': '4', 'producerList': '5'};
@@ -44,7 +45,7 @@ export default class Header extends PureComponent {
       chainId: 0,
       customNodeDisabled: true,
       languages: [{value: 'ch', label:'中文'}, {value: 'en', label:'English'}],
-      curLang: (defaultLang == null || defaultLang == 'ch') ? 'English' : '中文',
+      curLang: (defaultLang == null || defaultLang == 'ch') ? 'English' : '中文 ',
       defaultLang,
       nodes: [{value: constant.mainNetRPCHttpsAddr, label:T('主网：') + constant.mainNetRPCHttpsAddr}, 
               {value: constant.testNetRPCHttpsAddr, label:T('测试网：') + constant.testNetRPCHttpsAddr}, 
@@ -213,7 +214,7 @@ export default class Header extends PureComponent {
           </div>
           {/* <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.manageAccount.bind(this)}><Icon type="account" />{T('账号管理')}</Button> */}
           &nbsp;&nbsp;
-          <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.onChangeLanguage.bind(this)}>{this.state.curLang}</Button>
+          <Button text type="normal" style={{color: '#808080', marginLeft: '30px',display: 'flex', alignItems: 'center'}} onClick={this.onChangeLanguage.bind(this)}><img src={language} width='20' style={{marginRight: '15px'}}/>{this.state.curLang}</Button>
           {/* &nbsp;&nbsp;
           <Select language={T('zh-cn')}
             style={{ width: 100 }}

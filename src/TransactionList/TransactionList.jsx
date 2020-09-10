@@ -11,6 +11,7 @@ import * as utils from '../utils/utils';
 import { T } from '../utils/lang';
 import * as txParser from '../utils/transactionParser';
 import Nodata from '../components/Common/Nodata';
+import txIcon from '../components/Common/images/tx-black.png';
 
 const txTag = require('./images/middle_icon_TX.png');
 const indicator = (
@@ -372,7 +373,7 @@ export default class TransactionList extends Component {
       <div className="progress-table">
         {
           this.state.homePage ? 
-            <IceContainer  title={T("交易")}>
+            <IceContainer  title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>}>
               {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false} 
                   isLoading={this.state.isLoading}
@@ -396,7 +397,7 @@ export default class TransactionList extends Component {
               </Button>
             </IceContainer>
               :
-            <IceContainer className="tab-card" title={T("交易")}>
+            <IceContainer className="tab-card" title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>}>
               {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false}
                   language={T('zh-cn')}

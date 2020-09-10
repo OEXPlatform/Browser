@@ -13,6 +13,7 @@ import eventProxy from '../../../../utils/eventProxy';
 import Nodata from '../../../../components/Common/Nodata';
 import block from './images/block.png';
 import './local.scss';
+import blockIcon from '../../../../components/Common/images/block-black.png';
 
 
 const indicator = (
@@ -148,7 +149,7 @@ export default class BlocksTable extends Component {
   render() {
     return (
       <div className="progress-table">
-        <IceContainer className="tab-card" title={T("区块")} >
+        <IceContainer className="tab-card" title={<span className='table-title'><img src={blockIcon}/>{T("区块")}</span>} >
           {
             (this.state.isLoading || !this.state.blockList.length) ? <Nodata/> : (
               <Table hasHeader={false} isZebra={false}  hasBorder={false}

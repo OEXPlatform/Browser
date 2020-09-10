@@ -14,10 +14,10 @@ import reducer from './reducer';
 import { T } from '../../../../utils/lang';
 
 const { Row, Col } = Grid;
-const block = require('./images/middle_icon_The latest block.png');
-const tx = require('./images/middle_icon_Trading information.png');
-const producer = require('./images/middle_icon_producers.png');
-const votes = require('./images/middle_icon_votes.png');
+const block = require('../../../../components/Common/images/block-white.png');
+const tx = require('../../../../components/Common/images/tx-white.png');
+const producer = require('./images/producers.png');
+const votes = require('./images/vote.png');
 
 class BlockTxLayout extends Component {
   static displayName = '';
@@ -104,32 +104,32 @@ class BlockTxLayout extends Component {
               <Row className='content'>
                 <Col span='4' style={{...styles.item, textAlign:'left'}}>
                   <Row align='center' style={styles.titleRow}>
-                    <img src={block}/>
-                    <div style={styles.title} className="title">
+                    <img src={block} width='24'/>
+                    <div style={styles.title}>
                       {T('最新区块')}
                     </div>
                   </Row>
                 </Col>
                 <Col span='4' style={styles.item}>
                   <Row align='center' style={styles.titleRow}>
-                    <img src={tx}/>
-                    <div style={styles.title} className="title">
+                    <img src={tx} width='24'/>
+                    <div style={styles.title}>
                       {T('交易信息')}
                     </div>
                   </Row>
                 </Col>
                 <Col span='4' style={styles.item}>
                   <Row align='center' style={styles.titleRow}>
-                    <img src={producer}/>
-                    <div style={styles.title} className="title">
+                    <img src={producer} width='24'/>
+                    <div style={styles.title}>
                       {T('生产者')}
                     </div>
                   </Row>
                 </Col>
                 <Col span='4' style={{...styles.item, }}>
                   <Row align='center' style={{...styles.titleRow, justifyContent: 'flex-end'}}>
-                    <img src={votes}/>
-                    <div style={styles.title} className="title">
+                    <img src={votes} width='24'/>
+                    <div style={styles.title}>
                       {T('投票数')}
                     </div>
                   </Row>

@@ -1,9 +1,4 @@
-$page-container-width: 90%;
-$base-color: #23C9A7;
-$ice-bottom-bg: #C1C6CC;
-$ice-text-color: #5E768B;
-$ice-sub-text-color: #91A1AF;
-$ice-disabled-color: rgba(31, 35, 64, 0.1);
+@import '../../../global.scss';
 /* GLOBAL */
 html,
 body {
@@ -46,6 +41,16 @@ body {
   height: 40px;    
   background:#ffffff;
   border-radius:8px;
+}
+
+.table-title{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  img{
+      width: 24px;
+      margin-right: 17px;
+  }
 }
 
 .ice-design-header-aside-footer-layout-#{$theme} {

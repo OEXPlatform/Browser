@@ -5,3 +5,13 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+.table-title{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  .img{
+      width: 30px;
+      margin-right: 30px;
+  }
+}
