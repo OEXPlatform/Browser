@@ -1,6 +1,6 @@
 /* eslint-disable prefer-template */
 /* eslint jsx-a11y/no-noninteractive-element-interactions:0 */
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Icon, Input, Select, Dialog } from '@icedesign/base';
 import Layout from '@icedesign/layout';
 import StyledMenu, {
@@ -22,12 +22,14 @@ import * as constant from '../../utils/constant';
 import { T, setLang } from '../../utils/lang';
 import styles from './scss/base.scss';
 import tabIcon from './tabIcon.png';
-import language from '../images/language.png'
+import language from '../images/language.png';
+import i18n from '../../i18n';
+import {withTranslation} from 'react-i18next';
 
 export const history = createHashHistory();
 const keyMap = {'dashboard': '0', 'Block': '1', 'Transaction': '2', 'assetOperator': '3', 'contractDev': '4', 'producerList': '5'};
 
-export default class Header extends PureComponent {
+class Header extends Component {
   constructor(props) {
     super(props);
     const nodeInfoCookie = cookie.load('nodeInfo');
@@ -44,9 +46,9 @@ export default class Header extends PureComponent {
       nodeInfo,
       chainId: 0,
       customNodeDisabled: true,
-      languages: [{value: 'ch', label:'中文'}, {value: 'en', label:'English'}],
-      curLang: (defaultLang == null || defaultLang == 'ch') ? 'English' : '中文 ',
+      languages: [{value: 'zh', label:'中文'}, {value: 'en', label:'English'}],
       defaultLang,
+      curLang: defaultLang,
       nodes: [{value: constant.mainNetRPCHttpsAddr, label:T('主网：') + constant.mainNetRPCHttpsAddr}, 
               {value: constant.testNetRPCHttpsAddr, label:T('测试网：') + constant.testNetRPCHttpsAddr}, 
               {value: constant.LocalRPCAddr, label:T('本地节点：') + constant.LocalRPCAddr}, 
@@ -58,8 +60,15 @@ export default class Header extends PureComponent {
     oexchain.oex.getChainConfig().then(chainConfig => {
       this.setState({chainId: chainConfig.chainId});
     })
+    if(this.state.defaultLang && this.state.defaultLang !== localStorage.getItem('i18nextLng')){
+      i18n.changeLanguage(this.state.defaultLang);
+      this.setState({
+        ...this.state,
+        curLang: this.state.defaultLang
+      })
+    }
   }
-  
+
   componentWillReceiveProps(nextProps) {
     this.setState({current: keyMap[nextProps.location.pathname.substr(1)]});
   }
@@ -71,14 +80,26 @@ export default class Header extends PureComponent {
     this.state.nodeInfo = v;
   }
   onChangeLanguage = () => {
-    let languageType = 'ch';
-    if (this.state.curLang == 'English') {
+    let languageType = this.state.defaultLang;
+    if (languageType == 'en') {
+      languageType = 'zh';
+      i18n.changeLanguage('zh');
+      this.setState({
+        ...this.state,
+        curLang: 'zh'
+      })
+    }else{
       languageType = 'en';
+      i18n.changeLanguage('en');
+      this.setState({
+        ...this.state,
+        curLang: 'en'
+      })
     }
     cookie.save('defaultLang', languageType, {path: '/', maxAge: 3600 * 24 * 360});
     setLang(languageType);
     history.go(0);
-//    history.push('/');
+
   }
   onChangeNode = (type, value) => {
     cookie.save('defaultNode', value, {path: '/', maxAge: 3600 * 24 * 360});
@@ -117,15 +138,14 @@ export default class Header extends PureComponent {
   }
 
   render() {
-    const defaultTrigger = <Button text type="normal" style={{color: '#808080'}} onClick={this.openSetDialog.bind(this)}><Icon type="set" />{T('设置接入节点')}</Button>;
-    const { isMobile, theme, width, className, style, location } = this.props;  
+    const { isMobile, theme, width, className, style, location, t } = this.props;  
+    const defaultTrigger = <Button text type="normal" style={{color: '#808080'}} onClick={this.openSetDialog.bind(this)}><Icon type="set" />{t('设置接入节点')}</Button>;
     const { pathname } = location;
 
     return (
       <Layout.Header
         theme={theme}
         className={cx('ice-design-layout-header')}
-        //style={{ ...style, width }}
       >
       <Logo />  
         <div
@@ -146,7 +166,7 @@ export default class Header extends PureComponent {
                 const linkProps = {};
                 if (nav.children) {
                   subMenu = {items: []};
-                  subMenu.label = T(nav.name);
+                  subMenu.label = t(nav.name);
                   nav.children.map(item => {
                     if (item.newWindow) {
                       subMenu.items.push({value: item.name, href: item.path, target: '_blank'});
@@ -184,11 +204,11 @@ export default class Header extends PureComponent {
                   <MenuItem key={idx} style={{display: 'flex', justifyContent: 'center'}}>
                     {linkProps.to ? (
                       <NavLink {...linkProps} className='navlinks' activeClassName='select'>
-                        {!isMobile ? T(nav.name) : null}
+                        {!isMobile ? t(nav.name) : null}
                       </NavLink>
                     ) : (
                       <a {...linkProps}>
-                        {!isMobile ? T(nav.name) : null}
+                        {!isMobile ? t(nav.name) : null}
                       </a>
                     )}
                     <img src={tabIcon} style={{position:'absolute', bottom: '-16px', width:'15px', display: pathname===linkProps.to ? 'block' : 'none'}} />
@@ -202,30 +222,30 @@ export default class Header extends PureComponent {
         </div>
         <div
           className="ice-design-layout-header-menu"
-          style={{ display: 'flex' }}
+          style={{ display: 'flex', alignItems: 'center' }}
         >
           <Balloon trigger={defaultTrigger} closable={false}>
-            {T('当前连接的节点')}:{this.state.nodeInfo}, ChainId:{this.state.chainId}
+            {t('当前连接的节点')}:{this.state.nodeInfo}, ChainId:{this.state.chainId}
           </Balloon>
           &nbsp;&nbsp;
           <div style={{display: 'flex', justifyContent: 'center', position:'relative', marginLeft: '30px'}}>
-            <NavLink to='/download' style={{color: '#808080'}} activeClassName='select' >{T('钱包下载')}</NavLink>
-            <img src={tabIcon} style={{position:'absolute', bottom: '-26px', width:'15px', display: pathname === '/download' ? 'block' : 'none'}} />
+            <NavLink to='/download' style={{color: '#808080'}} activeClassName='select' >{t('钱包下载')}</NavLink>
+            <img src={tabIcon} style={{position:'absolute', bottom: '-28px', width:'15px', display: pathname === '/download' ? 'block' : 'none'}} />
           </div>
-          {/* <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.manageAccount.bind(this)}><Icon type="account" />{T('账号管理')}</Button> */}
+          {/* <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.manageAccount.bind(this)}><Icon type="account" />{t('账号管理')}</Button> */}
           &nbsp;&nbsp;
-          <Button text type="normal" style={{color: '#808080', marginLeft: '30px',display: 'flex', alignItems: 'center'}} onClick={this.onChangeLanguage.bind(this)}><img src={language} width='20' style={{marginRight: '15px'}}/>{this.state.curLang}</Button>
+          <Button text type="normal" style={{color: '#808080', marginLeft: '30px',display: 'flex', alignItems: 'center'}} onClick={this.onChangeLanguage.bind(this)}><img src={language} width='20' style={{marginRight: '15px'}}/>{this.state.languages.filter(item => item.value === this.state.curLang)[0].label}</Button>
           {/* &nbsp;&nbsp;
-          <Select language={T('zh-cn')}
+          <Select language={t('zh-cn')}
             style={{ width: 100 }}
-            placeholder={T("语言")}
+            placeholder={t("语言")}
             onChange={this.onChangeLanguage.bind(this)}
             dataSource={this.state.languages}
             defaultValue={this.state.defaultLang}
           /> */}
-          <Dialog language={T('zh-cn')}
+          <Dialog language={t('zh-cn')}
             visible={this.state.nodeConfigVisible}
-            title={T("配置需连接的节点")}
+            title={t("配置需连接的节点")}
             footerActions="ok"
             footerAlign="center"
             closeable="true"
@@ -233,9 +253,9 @@ export default class Header extends PureComponent {
             onCancel={() => this.setState({ nodeConfigVisible: false })}
             onClose={() => this.setState({ nodeConfigVisible: false })}
           >
-            <Select language={T('zh-cn')}
+            <Select language={t('zh-cn')}
                 style={{ width: 400 }}
-                placeholder={T("选择节点")}
+                placeholder={t("选择节点")}
                 onChange={this.onChangeNode.bind(this, 'nodeInfo')}
                 value={this.state.nodeInfo}
                 defaultValue={constant.testNetRPCHttpsAddr}
@@ -328,3 +348,6 @@ export default class Header extends PureComponent {
     );
   }
 }
+
+
+export default withTranslation()(Header);

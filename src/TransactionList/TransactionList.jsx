@@ -388,11 +388,14 @@ export default class TransactionList extends Component {
                 </Table>
               )}
               
-              <Button type='primary' 
-                      style={{width: '100%', height: '40px', background: 'rgb(239,240,255)', color: '#5c67f2'}}
-                      onClick={() => {
-                        history.push('/Transaction');
-                      }}>
+              <Button 
+                type='primary' 
+                style={{width: '100%', height: '40px'}}
+                onClick={() => {
+                  history.push('/Transaction');
+                }}
+                disabled={this.state.isLoading || !this.state.transactions.length}
+                >
                 {T('查询交易')}
               </Button>
             </IceContainer>
