@@ -15,6 +15,8 @@ import configureStore from './configureStore';
 import cookie from 'react-cookies';
 import { setLang } from './utils/lang';
 import * as constant from './utils/constant';
+import {I18nextProvider} from 'react-i18next';
+import i18n from './i18n';
 
 const defaultLang = cookie.load('defaultLang');
 if (defaultLang != null) {
@@ -48,7 +50,9 @@ if (!ICE_CONTAINER) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>{router()}</ConnectedRouter>
+    <I18nextProvider i18n={i18n}>
+      <ConnectedRouter history={history}>{router()}</ConnectedRouter>
+    </I18nextProvider>
   </Provider>,
   ICE_CONTAINER
 );

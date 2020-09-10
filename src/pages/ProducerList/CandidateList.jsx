@@ -12,6 +12,7 @@ import TxSend from "../TxSend";
 import './local.scss';
 import leftBg from './images/dot-left-bg.png';
 import Nodata from '../../components/Common/Nodata';
+import {withTranslation} from 'react-i18next';
 
 const VOTER = 1;
 const PRODUCER = 2;
@@ -24,7 +25,7 @@ const isapieceofImg = require('./images/miners_icon_Isapieceof.png');
 const myImg = require('./images/miners_icon_my.png');
 const pieceImg = require('./images/miners_icon_piece.png');
 
-export default class CandidateList extends Component {
+class CandidateList extends Component {
   static displayName = 'CandidateList';
 
 
@@ -536,6 +537,7 @@ export default class CandidateList extends Component {
     return render;
   }
   render() {
+    const {t} = this.props;
     return (
       <div className='contain' sytle={styles.all}>
         <div className='mainContainer'> 
@@ -543,8 +545,8 @@ export default class CandidateList extends Component {
           <div className='cicles'>
             <div class='titleSign'></div>
             <div className='titles'>
-              <div className='mainText'>第{this.state.curEpoch}周期</div>
-              <div className='subText'>{T('一个周期时长')}:{this.state.duration}</div>
+              <div className='mainText'>{t('cicles',{cicle: this.state.curEpoch})}</div>
+              <div className='subText'>{('一个周期时长')}:{this.state.duration}</div>
             </div>
           </div>
           <IceContainer className='listContain' style={{...styles.table}}>
@@ -761,3 +763,5 @@ const styles = {
     backgroundColor: '#5c67f2'
   }
 };
+
+export default withTranslation()(CandidateList);

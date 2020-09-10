@@ -600,7 +600,7 @@ const ch2en = {
   }
 
   function setLang(lang) {
-    if (lang == 'ch') {
+    if (lang == 'zh') {
       isCh = true;
     } else if (lang == 'en') {
       isCh = false;

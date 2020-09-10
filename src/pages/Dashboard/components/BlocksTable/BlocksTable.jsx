@@ -166,11 +166,14 @@ export default class BlocksTable extends Component {
               </Table>
             ) 
           }
-          <Button type='primary' 
-                  style={{width: '100%', height: '40px', marginTop: '5px', background: 'rgb(239,240,255)', color: '#5c67f2'}}
-                  onClick={() => {
-                    this.setState({blockListVisible: true});
-                  }}>
+          <Button 
+            type='primary' 
+            style={{width: '100%', height: '40px', marginTop: '5px',}}
+            onClick={() => {
+              this.setState({blockListVisible: true});
+            }}
+            disabled={this.state.isLoading || !this.state.blockList.length}
+          >
             {T('查看所有区块')}
           </Button>
         </IceContainer>
