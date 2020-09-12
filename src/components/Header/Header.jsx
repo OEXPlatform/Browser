@@ -34,7 +34,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
     const nodeInfoCookie = cookie.load('nodeInfo');
-    const defaultLang = cookie.load('defaultLang');
+    const defaultLang = cookie.load('defaultLang') || localStorage.getItem('i18nextLng');
 
     let nodeInfo = nodeInfoCookie;
     if (utils.isEmptyObj(nodeInfo)) {
