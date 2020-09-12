@@ -6,7 +6,6 @@ import mainBg from './images/download.png';
 import iphone from './images/iphone.png';
 import android from './images/android.png';
 
-
 const Download = () => {
   return (
     <div className='layout'>

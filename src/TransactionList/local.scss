@@ -8,22 +8,17 @@
 .gasUsed{
     background: $ice-disabled-color;
     padding: 5px;
-    max-width: 100px;
     border-radius: 3px;
     text-align: right;
-}
-.tab-card{
-    padding: 0 !important; 
-}
-
-/* .next-table th{
-    color: $base-color;
-    background:transparent !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.next-table table{
-    background: transparent !important;
+.infoList{
+    line-height:1.5;
+    color: $ice-text-color;
 }
-.next-table-row{
-    background: transparent !important;
-} */
+.blockTime{
+    color: $ice-sub-text-color;
+}

@@ -11,7 +11,7 @@ import * as Constant from './constant';
 import moment from 'moment';
 
 export const getBlockTime = (time) => {
-  return moment(Number(time.toString().slice(0,-6))).fromNow();
+  return moment(Number(time.toString().slice(0,-6))).format('YYYY-MM-DD HH:mm:ss');
 }
 /**
  * 格式化菜单数据结构，如果子菜单有权限配置，则子菜单权限优先于父级菜单的配置

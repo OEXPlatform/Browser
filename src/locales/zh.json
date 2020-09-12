@@ -567,6 +567,9 @@
     "searchPlaceholder_tx":"交易哈希值",
     "transications":"{{number}} 交易",
     "gasUsed":"消耗",
+    "blockTime":"出块时间：{{time}}",
+    "status1":"成功",
+    "status0":"失败",
     "producers":"节点矿工"
   }
 }

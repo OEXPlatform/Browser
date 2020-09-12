@@ -15,6 +15,7 @@ import txIcon from '../components/Common/images/tx-black.png';
 import cn from 'classnames';
 import txPrimaryIcon from '../components/Common/images/tx-primary.png';
 import './local.scss';
+import {withTranslation} from 'react-i18next';
 
 const txTag = require('./images/middle_icon_TX.png');
 const indicator = (
@@ -29,7 +30,7 @@ const CustomLoading = (props) => (
         {...props}
     />
 );
-export default class TransactionList extends Component {
+class TransactionList extends Component {
   static displayName = 'TransactionList';
 
   constructor(props) {
@@ -119,7 +120,9 @@ export default class TransactionList extends Component {
               _this.state.assetInfos[actionInfo.assetID] = assetInfo;
             }
             var parsedAction = txParser.parseAction(actionInfo, _this.state.assetInfos[actionInfo.assetID], _this.state.assetInfos, dposInfo);
-            parsedAction['result'] = actionResults[i].status == 1 ? T('成功') : T('失败') + '（' + actionResults[i].error + '）';
+            parsedAction['status'] = actionResults[i].status;
+            parsedAction['error'] = actionResults[i].error;
+            //parsedAction['result'] = actionResults[i].status == 1 ? T('成功') : T('失败') + '（' + actionResults[i].error + '）';
             parsedAction['gasFee'] = utils.getGasEarned(transaction.gasPrice, actionResults[i].gasUsed, _this.state.assetInfos[transaction.gasAssetID]) + ' oex';
             parsedAction['fromAccount'] = actionInfo.from;
 
@@ -351,7 +354,7 @@ export default class TransactionList extends Component {
     var defaultTrigger = <Tag type="normal" size="small">{detailInfo}</Tag>;
 
     return (
-      <div style={{lineHeight:1.25}}>
+      <div className='infoList'>
           <div>
             交易类型 <font className='blockNumber'>{actionType}</font>
           </div>
@@ -366,13 +369,9 @@ export default class TransactionList extends Component {
   }
   
   renderResult2 = (value, index, record) => {
+    const {t} = this.props;
     var parseActions = record.actions;
-    let result = '';
-    console.log(parseActions);
-    parseActions.map((item)=>{
-      result = item.result;
-    });
-    return result;
+    return parseActions[0].error ? <Balloon  trigger={t(`status${parseActions[0].status}`)} closable={false}>{parseActions[0].error}</Balloon> : t(`status${parseActions[0].status}`);
   }
 
   render() {
@@ -380,18 +379,20 @@ export default class TransactionList extends Component {
       <div className="progress-table">
         {
           this.state.homePage ? 
-            <IceContainer  title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>} >
+            <IceContainer title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>}>
               {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false} 
                   isLoading={this.state.isLoading}
                   loadingComponent={CustomLoading}
                   language={T('zh-cn')} hasHeader={false} 
                   dataSource={this.state.transactions}
+                  fixedHeader={true}
+                  maxBodyHeight={500}
                 >
-                  <Table.Column width={50} cell={this.renderHeader.bind(this)}/>
-                  <Table.Column title={T("交易Hash")} dataIndex="txHash" width={100} cell={this.renderHash2.bind(this)}/>
+                  <Table.Column width={40} cell={this.renderHeader.bind(this)}/>
+                  <Table.Column title={T("交易Hash")} dataIndex="txHash" width={80} cell={this.renderHash2.bind(this)}/>
                   <Table.Column title={T("交易详情")} dataIndex="parsedActions" width={180} cell={this.renderDetailInfo2.bind(this)}/>
-                  <Table.Column title={T("结果")} dataIndex="parsedActions" width={80} cell={this.renderResult2.bind(this)} />
+                  <Table.Column title={T("结果")} dataIndex="parsedActions" width={80} align='right' cell={this.renderResult2.bind(this)} />
                 </Table>
               )}
               
@@ -407,7 +408,7 @@ export default class TransactionList extends Component {
               </Button>
             </IceContainer>
               :
-            <IceContainer className="tab-card" style={{backgroundColor: "transparent !important"}}>
+            <IceContainer className="tab-card"  style={{backgroundColor: "transparent !important" ,padding: '0 !important'}}>
               {(this.state.isLoading || !this.state.transactions.length) ? <Nodata/> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false}
                   language={T('zh-cn')}
@@ -478,3 +479,5 @@ const styles = {
     fontWeight: 900,
   }
 };
+
+export default withTranslation()(TransactionList);

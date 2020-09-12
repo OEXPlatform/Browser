@@ -99,7 +99,7 @@ class BlockTableComponent extends Component {
           Feedback.toast.error(T('无法获取到交易信息'));
         }
       } else {
-        Feedback.toast.prompt(T('请输入十六进制的hash值'));
+        value.length && Feedback.toast.prompt(T('请输入十六进制的hash值'));
       }
     }
   }
@@ -166,7 +166,7 @@ class BlockTableComponent extends Component {
             <Route path='/Transaction' render={() => {
                 return (
                   <div>
-                    <IceContainer className={cn('block-container')}>
+                    <IceContainer className={cn('block-container', subClass)}>
                       <h4 className={cn('title', subClass)}> <img src={txIcon} width='24'/>{T("交易")}</h4>
                       <TransactionList txFrom={this.state.txFrom}/>
                     </IceContainer>

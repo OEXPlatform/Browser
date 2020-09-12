@@ -48,6 +48,9 @@ body {
   background:#ffffff;
   border-radius:8px;
 }
+.next-table th .next-table-cell-wrapper, .next-table td .next-table-cell-wrapper{
+  padding: 12px 4px !important;
+}
 
 .table-title{
   display: flex;

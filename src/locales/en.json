@@ -568,6 +568,9 @@
     "searchPlaceholder_tx":"TxHash",
     "transications":"{{number}} Transications",
     "gasUsed":"Used",
+    "blockTime":"Time: {{time}}",
+    "status1":"success",
+    "status0":"failure",
     "producers":"Producers"
   }
 }

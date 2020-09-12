@@ -16,7 +16,7 @@ import './local.scss';
 import blockIcon from '../../../../components/Common/images/block-black.png';
 import {withTranslation} from 'react-i18next';
 import {compose} from 'redux';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 
 
 const indicator = (
@@ -122,17 +122,19 @@ class BlocksTableComponent extends Component {
     const {t} = this.props;
     const localTime = utils.getValidTime(record.timestamp);
     const reward = utils.getReadableNumber(record.reward, 18);
-    return (<div>
+    return (
+      <div className='infoList'>
         <div>
           {T('矿工 ') + ' '}<font className='blockNumber'>{record.miner}</font>
+        </div>
+        <div>
           {T(' 奖励 ') + ' '}<font className='blockNumber'>{reward} OEX</font>
         </div>
         <div>
           <font className='blockNumber'>{t('transications',{number: record.txn})}</font>
         </div>
-        <div>
-          {/* {utils.getBlockTime(record.timestamp)} */}
-          {T('出块时间 ')}{localTime}
+        <div className='blockTime'>
+        {t('blockTime',{time: utils.getBlockTime(record.timestamp)})}{}
         </div>
       </div>);
 
@@ -141,7 +143,7 @@ class BlocksTableComponent extends Component {
   renderBlockNumber = (v,index, record) => {
     return (
       <div>
-        <a href={'/#/Block?' + v} className='blockNumber' >{v}</a>
+        <Link to={`/Block?${v}`} className='blockNumber'>{v}</Link>
       </div>
       );
   }
@@ -163,11 +165,13 @@ class BlocksTableComponent extends Component {
                 dataSource={this.state.blockList}
                 primaryKey="number"
                 language={T('zh-cn')}
+                fixedHeader={true}
+                maxBodyHeight={500}
               >
-                <Table.Column width={60} cell={this.renderHeader.bind(this)}/>
-                <Table.Column title={T("高度")} dataIndex="number" width={80} cell={this.renderBlockNumber.bind(this)}/>
+                <Table.Column width={40} cell={this.renderHeader.bind(this)}/>
+                <Table.Column title={T("高度")} dataIndex="number" width={60} cell={this.renderBlockNumber.bind(this)}/>
                 <Table.Column title={T("详情")} dataIndex="timestamp" width={200} cell={this.renderBlockInfo.bind(this)}/>
-                <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" align='right' width={100} cell={this.renderGas.bind(this)}/>
+                <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={120} cell={this.renderGas.bind(this)}/>
               </Table>
             ) 
           }
