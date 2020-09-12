@@ -30,7 +30,7 @@
     "ethereumjs-util": "^6.1.0",
     "ethers": "^4.0.27",
     "foundation-symbol": "^0.1.0",
-    "graceful-fs": "4.2.2",
+    "graceful-fs": "^4.2.4",
     "history": "^4.7.2",
     "hoist-non-react-statics": "^2.5.5",
     "i18next": "^19.7.0",
@@ -82,7 +82,11 @@
   "scripts": {
     "start": "ice dev",
     "build": "ice build",
-    "lint": "eslint . --ext '.js,.jsx' --fix"
+    "lint": "eslint . --ext '.js,.jsx' --fix",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "resolutions": {
+    "graceful-fs": "4.2.4"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.com",
