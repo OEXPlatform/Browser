@@ -125,15 +125,17 @@ class BlocksTableComponent extends Component {
     return (<div>
         <div>
           {T('矿工 ') + ' '}<font className='blockNumber'>{record.miner}</font>
-          {/* {T(' 区块奖励 ') + ' '}<font className='blockNumber'>{reward} OEX</font> */}
+          {T(' 奖励 ') + ' '}<font className='blockNumber'>{reward} OEX</font>
         </div>
         <div>
           <font className='blockNumber'>{t('transications',{number: record.txn})}</font>
         </div>
         <div>
-          {utils.getBlockTime(record.timestamp)}
+          {/* {utils.getBlockTime(record.timestamp)} */}
+          {T('出块时间 ')}{localTime}
         </div>
       </div>);
+
   }
 
   renderBlockNumber = (v,index, record) => {
