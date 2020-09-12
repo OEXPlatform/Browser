@@ -23,7 +23,12 @@ body {
     }
 }
 .next-table th{
-  background: #DEE4EC;
+  color: $base-color;
+  background:transparent !important;
+}
+
+.next-table table{
+  background:transparent !important;
 }
 
 .next-pagination-item.next-current {

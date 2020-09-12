@@ -141,7 +141,7 @@ class BlocksTableComponent extends Component {
   renderBlockNumber = (v,index, record) => {
     return (
       <div>
-        <a href={'/#/Block?h=' + v} className='blockNumber' >{v}</a>
+        <a href={'/#/Block?' + v} className='blockNumber' >{v}</a>
       </div>
       );
   }
@@ -165,7 +165,7 @@ class BlocksTableComponent extends Component {
                 language={T('zh-cn')}
               >
                 <Table.Column width={60} cell={this.renderHeader.bind(this)}/>
-                <Table.Column title={T("高度")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
+                <Table.Column title={T("高度")} dataIndex="number" width={80} cell={this.renderBlockNumber.bind(this)}/>
                 <Table.Column title={T("详情")} dataIndex="timestamp" width={200} cell={this.renderBlockInfo.bind(this)}/>
                 <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" align='right' width={100} cell={this.renderGas.bind(this)}/>
               </Table>

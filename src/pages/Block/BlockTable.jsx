@@ -14,6 +14,7 @@ import {withRouter, Route, Switch} from 'react-router-dom';
 import cn from 'classnames';
 import {withTranslation} from 'react-i18next';
 import blockIcon from '../../components/Common/images/block-white.png';
+import txIcon from '../../components/Common/images/tx-black.png';
 
 const { Row, Col } = Grid;
 
@@ -23,7 +24,7 @@ class BlockTableComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        number: props.location.search.length > 1 ? props.location.search.substr(3) : null,
+        number: props.location.search.length > 1 ? props.location.search.substr(1) : null,
         filter: [
             {
               text: T("区块高度"),
@@ -54,7 +55,7 @@ class BlockTableComponent extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.state.number = nextProps.location.search.length > 1 ? nextProps.location.search.substr(3) : '';
+    this.state.number = nextProps.location.search.length > 1 ? nextProps.location.search.substr(1) : '';
     this.state.searchedBlock = this.state.number;
     if (this.state.number != null) {
       this.onSearch();
@@ -77,7 +78,6 @@ class BlockTableComponent extends Component {
       } else {
         blockInfo = await oexchain.oex.getBlockByNum(value, true);
       }
-  
       if (blockInfo != null) {
         this.setState({ blockInfo, txFrom: {blockHeight: blockInfo.number}, txNum: blockInfo.transactions.length });
       } else {
@@ -157,6 +157,7 @@ class BlockTableComponent extends Component {
                     />
                   </IceContainer>
                   <IceContainer className={cn('block-container')}>
+                    <h4 className={cn('title')}> <img src={txIcon} width='24'/>{T("交易")}</h4>
                     <TransactionList txFrom={this.state.txFrom}/>
                   </IceContainer>
                 </div>
@@ -165,7 +166,8 @@ class BlockTableComponent extends Component {
             <Route path='/Transaction' render={() => {
                 return (
                   <div>
-                    <IceContainer  className={cn('block-container', subClass)}>
+                    <IceContainer className={cn('block-container')}>
+                      <h4 className={cn('title', subClass)}> <img src={txIcon} width='24'/>{T("交易")}</h4>
                       <TransactionList txFrom={this.state.txFrom}/>
                     </IceContainer>
                     <IceContainer className={cn('block-container')}>

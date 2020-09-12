@@ -14,6 +14,7 @@ import Nodata from '../components/Common/Nodata';
 import txIcon from '../components/Common/images/tx-black.png';
 import cn from 'classnames';
 import txPrimaryIcon from '../components/Common/images/tx-primary.png';
+import './local.scss';
 
 const txTag = require('./images/middle_icon_TX.png');
 const indicator = (
@@ -150,13 +151,15 @@ export default class TransactionList extends Component {
             this.state.transactions = this.state.transactions.slice(0, this.state.transactions.length - (txNum - this.state.maxTxNum));
           }
         } 
-        transactions = [...transactions, ...this.state.transactions];
-        console.log('tx num = ' + transactions.length + ', maxTxNum = ' + this.state.maxTxNum);
+        transactions = [...transactions, ...this.state.transactions, ];
         if (transactions.length > this.state.maxTxNum) {
-          transactions = transactions.slice(0, this.state.maxTxNum);
+          transactions = transactions.slice(0, transactions.length);
         }
 
-        this.state.transactions = transactions;
+        this.setState({
+          ...this.state,
+          transactions,
+        })
         this.state.isLoading = false;
       //});
     }
@@ -324,12 +327,12 @@ export default class TransactionList extends Component {
 
   
   renderHeader = () => {
-    return <img src={txTag}></img>
+    return <div style={styles.txType}>Tx</div>
   }
 
   renderHash2 = (value) => {
     const displayValue = value.substr(0, 12) + '...';
-    return <a classNmae='blockNumber' title={T('点击可复制')} href={'/#/Transaction?' + value}>{displayValue}</a>;
+    return <a className='blockNumber' title={T('点击可复制')} href={'/#/Transaction?' + value}>{displayValue}</a>;
   }
 
   renderDetailInfo2 = (value, index, record) => {
@@ -347,22 +350,25 @@ export default class TransactionList extends Component {
     });
     var defaultTrigger = <Tag type="normal" size="small">{detailInfo}</Tag>;
 
-    return (<div>
-        <div>
-          发送方<font classNmae='blockNumber'>{accountName}</font>
-        </div>
-        <div>
-          交易类型<font classNmae='blockNumber'>{actionType}</font>
-        </div>
-        <div>
-          交易详情<Balloon  trigger={defaultTrigger} closable={false}>{detailInfo}</Balloon>
-        </div>
-      </div>);
+    return (
+      <div style={{lineHeight:1.25}}>
+          <div>
+            交易类型 <font className='blockNumber'>{actionType}</font>
+          </div>
+          <div>
+            发送方 <font className='blockNumber'>{accountName}</font>
+          </div>
+          <div>
+            交易详情 <Balloon  trigger={defaultTrigger} closable={false}>{detailInfo}</Balloon>
+          </div>
+      </div>
+    );
   }
   
   renderResult2 = (value, index, record) => {
     var parseActions = record.actions;
     let result = '';
+    console.log(parseActions);
     parseActions.map((item)=>{
       result = item.result;
     });
@@ -401,8 +407,8 @@ export default class TransactionList extends Component {
               </Button>
             </IceContainer>
               :
-            <IceContainer className="tab-card" style={{backgroundColor: "transparent !important"}} title={<span className={cn('table-title', 'darkBg')}><img src={txPrimaryIcon}/>{T("交易")}</span>}>
-              {(this.state.isLoading || !this.state.transactions.length) ? <Nodata theme='dark'/> : (
+            <IceContainer className="tab-card" style={{backgroundColor: "transparent !important"}}>
+              {(this.state.isLoading || !this.state.transactions.length) ? <Nodata/> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false}
                   language={T('zh-cn')}
                   dataSource={this.state.transactions}
@@ -420,7 +426,6 @@ export default class TransactionList extends Component {
                   <Table.Column title={T("结果")} dataIndex="parsedActions" width={80} cell={this.renderResult.bind(this)} />
                   <Table.Column title={T("总手续费")} dataIndex="parsedActions" width={100} cell={this.renderGasFee.bind(this)} />
                   <Table.Column title={T("手续费分配详情")} dataIndex="parsedActions" width={150} cell={this.renderGasAllot.bind(this)} />
-
                 </Table>
               )}
             </IceContainer>
@@ -461,4 +466,15 @@ const styles = {
     padding: '20px 0 0 0',
     flexDirection: 'row-reverse',
   },
+  txType: {
+    width: 32,
+    height:32,
+    background: 'rgba(31, 35, 64, .1)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '50%', 
+    fontSize: '12px', 
+    fontWeight: 900,
+  }
 };

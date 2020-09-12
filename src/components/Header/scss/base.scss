@@ -5,6 +5,8 @@
   margin: 0px auto;
   background-color: white;
   border-bottom: 3px solid $base-color;
+  display:flex;
+  justify-content: space-between;
 }
 .ice-menu .ice-menu-item{
   overflow: unset;

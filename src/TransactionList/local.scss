@@ -1,0 +1,29 @@
+
+@import '../global.scss';
+
+.blockNumber{
+    color: $base-color;
+}
+
+.gasUsed{
+    background: $ice-disabled-color;
+    padding: 5px;
+    max-width: 100px;
+    border-radius: 3px;
+    text-align: right;
+}
+.tab-card{
+    padding: 0 !important; 
+}
+
+/* .next-table th{
+    color: $base-color;
+    background:transparent !important;
+}
+
+.next-table table{
+    background: transparent !important;
+}
+.next-table-row{
+    background: transparent !important;
+} */

@@ -52,7 +52,7 @@
 
 .block-container{
   width:100%;
-  padding: 20px 25px !important;
+  padding: 20px 30px !important;
   display: flex;
   border-radius: 20px !important;
   justify-content: 'flex-start';
@@ -68,13 +68,11 @@
  
 }
 .title{
-  margin:20px;
-  padding: 15px 0;
+  padding-bottom: 10px;
   font-size:16px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: rgba(255,255,255, 0.85);
   font-weight:500;
   display: flex;
   align-items: center;
