@@ -8,6 +8,11 @@ import * as oexchain from 'oex-web3';
 import * as ethUtil from 'ethereumjs-util';
 import { T } from './lang';
 import * as Constant from './constant';
+import moment from 'moment';
+
+export const getBlockTime = (time) => {
+  return moment(Number(time.toString().slice(0,-6))).fromNow();
+}
 /**
  * 格式化菜单数据结构，如果子菜单有权限配置，则子菜单权限优先于父级菜单的配置
  * 如果子菜单没有配置，则继承自父级菜单的配置

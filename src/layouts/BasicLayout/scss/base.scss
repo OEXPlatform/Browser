@@ -16,6 +16,7 @@ body {
 }
 .next-btn.next-btn-primary{ 
     background-color: $base-color;
+    align-items: center;
     &:disabled{
       background-color: $ice-disabled-color;
       color: $base-color;
@@ -47,6 +48,9 @@ body {
   display: flex;
   align-items: center;
   font-size: 16px;
+  &.darkBg{
+    color: $base-color;
+  }
   img{
       width: 24px;
       margin-right: 17px;

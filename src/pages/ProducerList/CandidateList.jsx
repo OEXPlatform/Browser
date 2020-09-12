@@ -591,7 +591,7 @@ class CandidateList extends Component {
               >
                 <Table.Column title={T("候选者账号")} dataIndex="name" width={100} cell={this.nameRender.bind(this)} />
                 <Table.Column title="URL" dataIndex="url" width={80} />
-                <Table.Column title={T("状态")} dataIndex="type" width={100} cell={this.typeRender.bind(this)}/>
+                <Table.Column title={T("状态")} dataIndex="type" width={120} cell={this.typeRender.bind(this)}/>
                 <Table.Column title={T("抵押票数")} dataIndex="quantity" width={90} sortable />
                 <Table.Column title={T("总投票数")} dataIndex="totalQuantity" width={60} sortable />
                 <Table.Column title={T("最近一次DPOS相关操作的区块高度")} dataIndex="number" width={130} cell={this.numberRender.bind(this)} />

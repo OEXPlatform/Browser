@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Grid, Input } from "@alifd/next";
+import { Button, Grid, Input, Icon} from "@alifd/next";
 import IceContainer from '@icedesign/container';
 import * as oexchain from 'oex-web3'
 import ReactJson from 'react-json-view';
+import {compose} from 'redux';
 
 import { Feedback } from '@icedesign/base';
 import BigNumber from "bignumber.js";
@@ -10,12 +11,13 @@ import TransactionList from '../../TransactionList';
 import { T } from '../../utils/lang';
 import './local.scss';
 import {withRouter, Route, Switch} from 'react-router-dom';
-import searchImg from './images/Search_icon.png';
 import cn from 'classnames';
+import {withTranslation} from 'react-i18next';
+import blockIcon from '../../components/Common/images/block-white.png';
 
 const { Row, Col } = Grid;
 
-class BlockTable extends Component {
+class BlockTableComponent extends Component {
   static displayName = 'BlockTable';
 
   constructor(props) {
@@ -39,6 +41,8 @@ class BlockTable extends Component {
         assetInfos: {},
         onePageNum: 10,
         txFrom: {},
+        txRawData: {},
+        txReceiptData: {},
     };
   }
 
@@ -58,23 +62,45 @@ class BlockTable extends Component {
   }
 
   onSearch = async () => {
+    const {match} = this.props;
+    const isBlock = Boolean(match.path.includes('Block'))
     const value = this.state.searchedBlock;
     var blockInfo = {};
     var blockInfo2 = {};
-    if (value.indexOf("0x") == 0) {
-      blockInfo = await oexchain.oex.getBlockByHash(value, true);
-      blockInfo2 = await oexchain.oex.getBlockByNum(blockInfo.number, false);
-      if (blockInfo.hash != blockInfo2.hash) {
-        Feedback.toast.prompt(T('注意：此区块已被回滚'));
+    if(isBlock){
+      if (value.indexOf("0x") === 0) {
+        blockInfo = await oexchain.oex.getBlockByHash(value, true);
+        blockInfo2 = await oexchain.oex.getBlockByNum(blockInfo.number, false);
+        if (blockInfo.hash != blockInfo2.hash) {
+          Feedback.toast.prompt(T('注意：此区块已被回滚'));
+        }
+      } else {
+        blockInfo = await oexchain.oex.getBlockByNum(value, true);
       }
-    } else {
-      blockInfo = await oexchain.oex.getBlockByNum(value, true);
-    }
+  
+      if (blockInfo != null) {
+        this.setState({ blockInfo, txFrom: {blockHeight: blockInfo.number}, txNum: blockInfo.transactions.length });
+      } else {
+          Feedback.toast.prompt(T('区块不存在'));
+      }
+    }else{
+      if (value.indexOf("0x") === 0) {
+        let txInfo = await oexchain.oex.getTransactionByHash(value);
+        if (txInfo != null) {
+          const txReceiptData = await oexchain.oex.getTransactionReceipt(value);//formatHighlight(await oexchain.oex.getTransactionReceipt(hash), COLOR_OPTION);
+          const txRawData = txInfo;//formatHighlight(txInfo, COLOR_OPTION);
 
-    if (blockInfo != null) {
-      this.setState({ blockInfo, txFrom: {blockHeight: blockInfo.number}, txNum: blockInfo.transactions.length });
-    } else {
-        Feedback.toast.prompt(T('区块不存在'));
+          this.setState({
+            txFrom: { txHashArr: [value] },
+            txRawData,
+            txReceiptData
+          });
+        } else {
+          Feedback.toast.error(T('无法获取到交易信息'));
+        }
+      } else {
+        Feedback.toast.prompt(T('请输入十六进制的hash值'));
+      }
     }
   }
 
@@ -104,9 +130,8 @@ class BlockTable extends Component {
 
   render() {
 
-    const {match} = this.props;
+    const {match, t} = this.props;
 
-    console.log(match);
     const isBlock = Boolean(match.path.includes('Block'))
 
     const subClass = isBlock ? 'bk' : 'tx';
@@ -115,44 +140,49 @@ class BlockTable extends Component {
       <div className={cn('contain', subClass)} style={styles.all}> 
         <div className='mainContainer'>
           <Row className='searchContain'>
-            <Button className='searchIcon' text onClick={this.onSearch.bind(this)}><img style={{width: '50%', height: '70%'}}  src={searchImg}/></Button>                   
+            <Button text iconSize='small' onClick={this.onSearch.bind(this)} className='searchIcon'><Icon type="search"/></Button>              
             <Input className={cn('search', subClass)} 
-                  placeholder={T("高度/哈希")} onChange={this.onBlockChange.bind(this)} onPressEnter={this.onSearch.bind(this)} defaultValue={this.state.number}/>
+                  placeholder={t("searchPlaceholder",{context: isBlock ? 'bk' : 'tx'})} onChange={this.onBlockChange.bind(this)} onPressEnter={this.onSearch.bind(this)} defaultValue={this.state.number}/>
           </Row>  
-
-          <IceContainer className={cn('block-container', subClass)}>
-            <h4 className={cn('title', subClass)} >{T('区块原始信息')}</h4>
-            <ReactJson displayDataTypes={false} theme={isBlock ? 'ocean' : 'rjv-default'} style={{padding: '30px', backgroundColor: 'transparent'}}
-              src={this.state.blockInfo}
-            />
-          </IceContainer>
-          
 
 
           <Switch>
             <Route path='/Block' render={() => {
               return (
-                <IceContainer style={{borderRadius: 20, marginTop: 20}}>
-                  <TransactionList txFrom={this.state.txFrom}/>
-                </IceContainer>
+                <div>
+                   <IceContainer className={cn('block-container', subClass)}>
+                    <h4 className={cn('title', subClass)}> <img src={blockIcon} width='24'/>{T('区块原始信息')}</h4>
+                    <ReactJson displayDataTypes={false} theme={isBlock ? 'ocean' : 'rjv-default'} style={{padding: '30px', backgroundColor: 'transparent'}}
+                      src={this.state.blockInfo}
+                    />
+                  </IceContainer>
+                  <IceContainer className={cn('block-container')}>
+                    <TransactionList txFrom={this.state.txFrom}/>
+                  </IceContainer>
+                </div>
               )
             }} />
             <Route path='/Transaction' render={() => {
                 return (
-                  <IceContainer className={cn('block-container', subClass)}>
-                    <IceContainer>
-                      <h4 className={cn('title', subClass)}>{T('交易原始信息')}</h4>
-                      <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
-                        src={this.state.txRawData}
-                      />
+                  <div>
+                    <IceContainer  className={cn('block-container', subClass)}>
+                      <TransactionList txFrom={this.state.txFrom}/>
                     </IceContainer>
-                    <IceContainer>
-                      <h4 className={cn('title', subClass)}>{T('交易Receipt信息')}</h4>
-                      <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
-                        src={this.state.txReceiptData}
-                      />
+                    <IceContainer className={cn('block-container')}>
+                      <div>
+                        <h4 className={cn('title', subClass)}>{T('交易原始信息')}</h4>
+                        <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
+                          src={this.state.txRawData}
+                        />
+                      </div>
+                      <div>
+                        <h4 className={cn('title', subClass)}>{T('交易Receipt信息')}</h4>
+                        <ReactJson  displayDataTypes={false} style={{backgroundColor: '#fff', padding: '30px'}}
+                          src={this.state.txReceiptData}
+                        />
+                      </div>
                     </IceContainer>
-                  </IceContainer>
+                  </div>
                 )
             }}/>
           </Switch>
@@ -197,4 +227,7 @@ const styles = {
     },
   };
 
-  export default withRouter(BlockTable);
+  export default compose(
+    withRouter,
+    withTranslation()
+  )(BlockTableComponent);

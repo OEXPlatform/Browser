@@ -1663,11 +1663,11 @@ export default class AccountList extends Component {
             </Col>
             <Col>
               <Row justify='end'>
-                <Button type='primary' style={styles.btn} onClick={this.addAccountBySelf.bind(this)}>
-                  <Icon type='add' size="xl" />{T('新增账户')}
+                <Button type='primary' iconSize='xl' style={styles.btn} onClick={this.addAccountBySelf.bind(this)}>
+                  <Icon type='add'/>{T('新增账户')}
                 </Button>
-                <Button type='primary' style={styles.btn} onClick={this.onImportAccount.bind(this)}>
-                  <Icon type='download' size="xl" />{T('导入账户')}
+                <Button type='primary' iconSize='xl' style={styles.btn} onClick={this.onImportAccount.bind(this)}>
+                  <Icon type='download' />{T('导入账户')}
                 </Button>
               </Row>
             </Col>

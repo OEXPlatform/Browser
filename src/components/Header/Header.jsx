@@ -25,6 +25,7 @@ import tabIcon from './tabIcon.png';
 import language from '../images/language.png';
 import i18n from '../../i18n';
 import {withTranslation} from 'react-i18next';
+import nodeIcon from '../images/node.png';
 
 export const history = createHashHistory();
 const keyMap = {'dashboard': '0', 'Block': '1', 'Transaction': '2', 'assetOperator': '3', 'contractDev': '4', 'producerList': '5'};
@@ -245,28 +246,27 @@ class Header extends Component {
           /> */}
           <Dialog language={t('zh-cn')}
             visible={this.state.nodeConfigVisible}
-            title={t("配置需连接的节点")}
+            title={<div className='dialogTitle'><img src={nodeIcon} width={64}/> <span className='title-text'>{t("配置需连接的节点")}</span></div>}
             footerActions="ok"
             footerAlign="center"
             closeable="true"
             onOk={this.onConfigNodeOK.bind(this)}
             onCancel={() => this.setState({ nodeConfigVisible: false })}
             onClose={() => this.setState({ nodeConfigVisible: false })}
+            className='dialogs'
           >
             <Select language={t('zh-cn')}
-                style={{ width: 400 }}
+                style={{ display:'block'}}
                 placeholder={t("选择节点")}
                 onChange={this.onChangeNode.bind(this, 'nodeInfo')}
                 value={this.state.nodeInfo}
                 defaultValue={constant.testNetRPCHttpsAddr}
                 dataSource={this.state.nodes}
             />
-            <br />
-            <br />
             <Input hasClear
               disabled={this.state.customNodeDisabled}
               onChange={this.handleNodeInfoChange.bind(this)}
-              style={{ width: 400 }}
+              className='node-input'
               addonBefore="RPC URL"
               size="medium"
               defaultValue={this.state.nodeInfo}

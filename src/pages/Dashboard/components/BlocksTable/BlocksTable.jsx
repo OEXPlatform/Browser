@@ -14,6 +14,9 @@ import Nodata from '../../../../components/Common/Nodata';
 import block from './images/block.png';
 import './local.scss';
 import blockIcon from '../../../../components/Common/images/block-black.png';
+import {withTranslation} from 'react-i18next';
+import {compose} from 'redux';
+import {withRouter} from 'react-router-dom';
 
 
 const indicator = (
@@ -29,7 +32,7 @@ const CustomLoading = (props) => (
     />
 );
 
-export default class BlocksTable extends Component {
+class BlocksTableComponent extends Component {
   static displayName = 'BlocksTable';
 
   constructor(props) {
@@ -116,34 +119,34 @@ export default class BlocksTable extends Component {
   }
 
   renderBlockInfo = (value, index, record) => {
+    const {t} = this.props;
     const localTime = utils.getValidTime(record.timestamp);
     const reward = utils.getReadableNumber(record.reward, 18);
     return (<div>
         <div>
-          {T('出块时间 ')}{localTime}
-        </div>
-        <div>
           {T('矿工 ') + ' '}<font className='blockNumber'>{record.miner}</font>
-          {T(' 区块奖励 ') + ' '}<font className='blockNumber'>{reward} OEX</font>
+          {/* {T(' 区块奖励 ') + ' '}<font className='blockNumber'>{reward} OEX</font> */}
         </div>
         <div>
-        {T('交易量 ') + ' '}<font className='blockNumber'>{record.txn}{T('条')}</font>
+          <font className='blockNumber'>{t('transications',{number: record.txn})}</font>
+        </div>
+        <div>
+          {utils.getBlockTime(record.timestamp)}
         </div>
       </div>);
   }
 
   renderBlockNumber = (v,index, record) => {
-    const localTime = utils.getValidTime(record.timestamp);
     return (
       <div>
         <a href={'/#/Block?h=' + v} className='blockNumber' >{v}</a>
-        <p>{localTime}</p>
       </div>
       );
   }
 
   renderGas = (v) => {
-    return T('Gas消耗') + ' ' + v;
+    const {t} = this.props;
+    return <div className='gasUsed'>{t('gasUsed')} {v} <span className='blockNumber'>GAS</span></div>;
   }
 
   render() {
@@ -162,7 +165,7 @@ export default class BlocksTable extends Component {
                 <Table.Column width={60} cell={this.renderHeader.bind(this)}/>
                 <Table.Column title={T("高度")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
                 <Table.Column title={T("详情")} dataIndex="timestamp" width={200} cell={this.renderBlockInfo.bind(this)}/>
-                <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={100} cell={this.renderGas.bind(this)}/>
+                <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" align='right' width={100} cell={this.renderGas.bind(this)}/>
               </Table>
             ) 
           }
@@ -201,3 +204,8 @@ const styles = {
     flexDirection: 'row-reverse',
   },
 };
+
+export default  compose(
+  withRouter,
+  withTranslation()
+)(BlocksTableComponent);

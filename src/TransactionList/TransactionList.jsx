@@ -12,6 +12,8 @@ import { T } from '../utils/lang';
 import * as txParser from '../utils/transactionParser';
 import Nodata from '../components/Common/Nodata';
 import txIcon from '../components/Common/images/tx-black.png';
+import cn from 'classnames';
+import txPrimaryIcon from '../components/Common/images/tx-primary.png';
 
 const txTag = require('./images/middle_icon_TX.png');
 const indicator = (
@@ -54,7 +56,6 @@ export default class TransactionList extends Component {
   }
 
   async componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.state.homePage = nextProps.txFrom.fromHomePage;
     if (nextProps.txFrom.maxTxNum != null) {
       this.state.maxTxNum = nextProps.txFrom.maxTxNum;
@@ -328,7 +329,7 @@ export default class TransactionList extends Component {
 
   renderHash2 = (value) => {
     const displayValue = value.substr(0, 12) + '...';
-    return <a style={{color: '#5c67f2'}} title={T('点击可复制')} href={'/#/Transaction?' + value}>{displayValue}</a>;
+    return <a classNmae='blockNumber' title={T('点击可复制')} href={'/#/Transaction?' + value}>{displayValue}</a>;
   }
 
   renderDetailInfo2 = (value, index, record) => {
@@ -348,10 +349,10 @@ export default class TransactionList extends Component {
 
     return (<div>
         <div>
-          发送方<font style={{color: '#5c67f2'}}>{accountName}</font>
+          发送方<font classNmae='blockNumber'>{accountName}</font>
         </div>
         <div>
-          交易类型<font style={{color: '#5c67f2'}}>{actionType}</font>
+          交易类型<font classNmae='blockNumber'>{actionType}</font>
         </div>
         <div>
           交易详情<Balloon  trigger={defaultTrigger} closable={false}>{detailInfo}</Balloon>
@@ -373,7 +374,7 @@ export default class TransactionList extends Component {
       <div className="progress-table">
         {
           this.state.homePage ? 
-            <IceContainer  title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>}>
+            <IceContainer  title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>} >
               {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false} 
                   isLoading={this.state.isLoading}
@@ -400,11 +401,12 @@ export default class TransactionList extends Component {
               </Button>
             </IceContainer>
               :
-            <IceContainer className="tab-card" title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>}>
-              {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
+            <IceContainer className="tab-card" style={{backgroundColor: "transparent !important"}} title={<span className={cn('table-title', 'darkBg')}><img src={txPrimaryIcon}/>{T("交易")}</span>}>
+              {(this.state.isLoading || !this.state.transactions.length) ? <Nodata theme='dark'/> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false}
                   language={T('zh-cn')}
                   dataSource={this.state.transactions}
+                  fixedHeader={true}
                 >
                   <Table.Column title={T("交易哈希")} dataIndex="txHash" width={80} cell={this.renderHash.bind(this)}/>
                   <Table.Column title={T("区块哈希")} dataIndex="blockHash" width={80} cell={this.renderHash.bind(this)}/>
