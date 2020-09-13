@@ -122,7 +122,7 @@ class TransactionList extends Component {
             var parsedAction = txParser.parseAction(actionInfo, _this.state.assetInfos[actionInfo.assetID], _this.state.assetInfos, dposInfo);
             parsedAction['status'] = actionResults[i].status;
             parsedAction['error'] = actionResults[i].error;
-            //parsedAction['result'] = actionResults[i].status == 1 ? T('成功') : T('失败') + '（' + actionResults[i].error + '）';
+            parsedAction['result'] = actionResults[i].status == 1 ? T('成功') : T('失败') ;
             parsedAction['gasFee'] = utils.getGasEarned(transaction.gasPrice, actionResults[i].gasUsed, _this.state.assetInfos[transaction.gasAssetID]) + ' oex';
             parsedAction['fromAccount'] = actionInfo.from;
 
@@ -356,13 +356,13 @@ class TransactionList extends Component {
     return (
       <div className='infoList'>
           <div>
-            交易类型 <font className='blockNumber'>{actionType}</font>
+          {T("交易类型")} <font className='blockNumber'>{actionType}</font>
           </div>
           <div>
-            发送方 <font className='blockNumber'>{accountName}</font>
+          {T("发送方")} <font className='blockNumber'>{accountName}</font>
           </div>
           <div>
-            交易详情 <Balloon  trigger={defaultTrigger} closable={false}>{detailInfo}</Balloon>
+          {T("交易详情")} <Balloon  trigger={defaultTrigger} closable={false}>{detailInfo}</Balloon>
           </div>
       </div>
     );

@@ -125,10 +125,10 @@ class BlocksTableComponent extends Component {
     return (
       <div className='infoList'>
         <div>
-          {T('矿工 ') + ' '}<font className='blockNumber'>{record.miner}</font>
+          {T('矿工') + ' '}<font className='blockNumber'>{record.miner}</font>
         </div>
         <div>
-          {T(' 奖励 ') + ' '}<font className='blockNumber'>{reward} OEX</font>
+          {T('奖励') + ' '}<font className='blockNumber'>{reward} OEX</font>
         </div>
         <div>
           <font className='blockNumber'>{t('transications',{number: record.txn})}</font>

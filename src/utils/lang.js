@@ -578,12 +578,21 @@ const ch2en = {
   "OEX介绍" : "About OEX",
   "支持" : "Supports",
   "上币申请" : "Apply Issue Token",
-  "机构与招商账户" : "机构与招商账户",
+  "机构与招商账户" : "Bussiness Account",
   "广告申请合作" : "Adv Bussiness",
-  "条款说明" : "说明条款",
+  "条款说明" : "Comments",
   "用户协议" : "User Agreement",
   "隐私条款" : "Privacy Policy",
   "交易规则" : "Trade Rules",
+  "最新区块交易量": "Latest Txns",
+  '奖励': "Reward",
+  "交易类型": "Type",
+  "发送方": "Sender",
+  "交易详情": "Detail",
+  "签名账户": "Signer",
+  "付款账户": "Payer",
+  "iPhone下载": "iPone Download",
+  "Android下载": "Android Download",
   }
 
   let isCh = true;

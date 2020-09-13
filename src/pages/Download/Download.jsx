@@ -5,6 +5,7 @@ import siteBg from './images/download-right-bg.png';
 import mainBg from './images/download.png';
 import iphone from './images/iphone.png';
 import android from './images/android.png';
+import { T } from '../../utils/lang';
 
 const Download = () => {
   return (
@@ -16,11 +17,11 @@ const Download = () => {
         <div className='download'>
           <a className='downloadItem' href='#'>
             <img src={iphone} width='50'/>
-            <span>iPhone下载</span>
+            <span>{T("iPhone下载")}</span>
           </a>
           <a className='downloadItem' href='#'>
             <img src={android} width='50'/>
-            <span>Android下载</span>
+            <span>{T("Android下载")}</span>
           </a>
         </div>
       </div>

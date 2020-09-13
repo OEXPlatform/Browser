@@ -37,7 +37,7 @@ export default class Footer extends PureComponent {
               <a href='#'><img src={oex}  alt='' width={25}/></a>
             </div>
             <div className="copyright">
-              © 2019 Theme designed by oex.com
+              © 2019 Theme designed by oexchain.io
             </div>
           </div>
           <div className="siteService">
