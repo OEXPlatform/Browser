@@ -105,7 +105,7 @@ function parseAction(actionInfo, assetInfo, allAssetInfos, dposInfo) {
     switch (actionType) {
       case actionTypes.TRANSFER:
         actionParseInfo.actionType = '转账';
-        actionParseInfo.detailInfo = `${fromAccount}->${toAccount}` + T('转账') + `${readableNum}${assetInfo.symbol}`;
+        actionParseInfo.detailInfo = `${fromAccount}->${toAccount} ` + T('转账') + ` ${readableNum}${assetInfo.symbol}`;
         actionParseInfo.detailObj = { accountName: fromAccount, toAccountName: toAccount, amount: readableNum, symbol: assetInfo.symbol };
         break;
       case actionTypes.CREATE_CONTRACT:
