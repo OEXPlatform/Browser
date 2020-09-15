@@ -3,16 +3,12 @@ import Layout from '@icedesign/layout';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 import twitter from './images/twitter.png';
-import telegram from './images/telegram.png';
+import tgEn from './images/tg-en.png';
+import tgZh from './images/tg-zh.png';
 import sina from './images/sina.png';
 import facebook from './images/facebook.png';
-import oex from './images/oex.png';
+import oex from './images/logo-footer.png';
 import './footer.scss';
-import { T } from '../../utils/lang';
-
-
-
-const logo = require('./images/bottom_logo.png');
 
 export default class Footer extends PureComponent {
   render() {
@@ -27,20 +23,17 @@ export default class Footer extends PureComponent {
         <div className="ice-design-layout-footer-body">
           <div className="logo">
             <Link to="/" className="logo-text">
-              OEXChain Explore
+              <img src={oex}  alt=''/>
             </Link>
-            <div className="links">
-              <a href='#'><img src={telegram} alt='' width={25}/></a>
-              <a href='#'><img src={sina} alt=''  width={25}/></a>
-              <a href='#'><img src={facebook} alt=''  width={25}/></a>
-              <a href='#'><img src={twitter}  alt='' width={25}/></a>
-              <a href='#'><img src={oex}  alt='' width={25}/></a>
-            </div>
-            <div className="copyright">
-              © 2019 Theme designed by oexchain.io
-            </div>
           </div>
-          <div className="siteService">
+          <div className="links">
+            <a href='https://t.me/oexfunder'><img src={tgEn} alt='' width={20}/></a>
+            <a href='https://t.me/oexfund'><img src={tgZh} alt='' width={20}/></a>
+            <a href='https://www.facebook.com/fund.oex.7'><img src={facebook} alt=''  width={20}/></a>
+            <a href='https://twitter.com/Oex_team'><img src={twitter}  alt='' width={20}/></a>
+            
+          </div>
+          {/* <div className="siteService">
             <div className='listContain'>
               <div className='listTitle'>{T('工具')}</div>
               <a href='#'>{T('客户端下载')}</a> 
@@ -65,7 +58,10 @@ export default class Footer extends PureComponent {
               <a href='#'>{T('隐私条款')}</a> 
               <a href='#'>{T('交易规则')}</a> 
             </div>
-          </div>
+          </div> */}
+        </div>
+        <div className="copyright">
+          © 2019 Theme designed by oex.com &emsp; | &emsp;<a href='mailto:oexfund@gmail.com' className='copyright-link'>oexfund@gmail.com</a>
         </div>
       </Layout.Footer>
     );

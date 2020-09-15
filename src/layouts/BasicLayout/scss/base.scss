@@ -78,6 +78,11 @@ body {
       color: $ice-text-color;
       font-weight: bold;
       font-family: Helvetica, sans-serif;
+      display: flex;
+      align-items: center;
+      img{
+        margin-right: 15px;
+      }
     }
   }
 
@@ -247,26 +252,29 @@ body {
     .ice-design-layout-footer {
       width: 100%;
       background-color: $ice-bottom-bg;
-      padding: 0 10%;
       margin: 0 auto;
       .ice-design-layout-footer-body {
-        margin: 49px auto 17px;
+        margin: 44px auto;
+        padding: 0 10%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .copyright {
-          margin: 25px 10px 0 0;
-          color: $ice-sub-text-color;
-          line-height: 1.5;
-          font-size: 12px;
-          text-align: left;
-        }
-        .copyright-link {
-          color: $ice-copyright-text-color;
-          &:hover {
-            color: $ice-copyright-text-hover-color;
-            text-decoration: none;
-          }
+      }
+      .copyright {
+        width:100%;
+        margin: 25px 10px 0 0;
+        color: $ice-dark-text-color;
+        background-color: $ice-sub-text-color;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        text-align: center;
+      }
+      .copyright-link {
+        color: $ice-dark-text-color;
+        &:hover {
+          color: $base-color;
+          text-decoration: none;
         }
       }
     }
@@ -298,6 +306,7 @@ body {
       width: 80px;
       .logo-text {
         font-size: 22px;
+        
       }
     }
 
