@@ -137,7 +137,6 @@ class BlocksTableComponent extends Component {
         {t('blockTime',{time: utils.getBlockTime(record.timestamp)})}{}
         </div>
       </div>);
-
   }
 
   renderBlockNumber = (v,index, record) => {
@@ -158,7 +157,7 @@ class BlocksTableComponent extends Component {
       <div className="progress-table">
         <IceContainer className="tab-card" title={<span className='table-title'><img src={blockIcon}/>{T("区块")}</span>} >
           {
-            (this.state.isLoading || !this.state.blockList.length) ? <Nodata/> : (
+            //(this.state.isLoading || !this.state.blockList.length) ? <Nodata/> : (
               <Table hasHeader={false} isZebra={false}  hasBorder={false}
                 isLoading={this.state.isLoading}
                 loadingComponent={CustomLoading}
@@ -173,7 +172,7 @@ class BlocksTableComponent extends Component {
                 <Table.Column title={T("详情")} dataIndex="timestamp" width={200} cell={this.renderBlockInfo.bind(this)}/>
                 <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={120} cell={this.renderGas.bind(this)}/>
               </Table>
-            ) 
+            //) 
           }
           <Button 
             type='primary' 
@@ -186,7 +185,7 @@ class BlocksTableComponent extends Component {
             {T('查看所有区块')}
           </Button>
         </IceContainer>
-        <Dialog language={T('zh-cn')} style={{ width: '1000px', height: '80%', marginTop: '-50px'}}
+        <Dialog language={T('zh-cn')} style={{ width: '70%', height: '80%', marginTop: '-50px'}}
           visible={this.state.blockListVisible}
           shouldUpdatePosition={true}
           title={T("全部区块")}

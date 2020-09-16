@@ -391,7 +391,7 @@
     "附带转账":"attached transfer",
     "转账资产ID":"transfer asset id",
     "转账资产金额":"transfer asset amount",
-    "查询交易":"require transaction",
+    "查询交易":"Require transaction",
     "查询Receipt":"require receipt",
     "交易/Receipt信息":"transaction/receipt info",
     "非交易哈希，无法查询":"not transaction hash",

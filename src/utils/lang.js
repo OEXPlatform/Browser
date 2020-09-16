@@ -414,7 +414,7 @@ const ch2en = {
   "附带转账":"attached transfer",
   "转账资产ID":"transfer asset id",
   "转账资产金额":"transfer asset amount",
-  "查询交易":"require transaction",
+  "查询交易":"Require transaction",
   "查询Receipt":"require receipt",
   "交易/Receipt信息":"transaction/receipt info",
   "非交易哈希，无法查询":"not transaction hash",
@@ -472,10 +472,10 @@ const ch2en = {
   "父资产不存在":"Father asset is not exist",
   "账号管理": "Account",
   "设置接入节点": "Node Setting",
-  "主网：": "Mainnet:",
+  "主网": "Mainnet:",
   "测试网1：": "Testnnet1:",
   "测试网2：": "Testnnet2:",
-  "本地节点：": "Local Node",
+  "本地节点": "Local Node",
   "自定义": "Customization",
   "实时数据": "Latest Data",
   "区块查询": "Block Info",
@@ -593,6 +593,9 @@ const ch2en = {
   "付款账户": "Payer",
   "iPhone下载": "iPone Download",
   "Android下载": "Android Download",
+  "查看所有区块": "Display all blocks",
+  "暂无数据": "No Data",
+  "全部区块": "All blocks"
   }
 
   let isCh = true;

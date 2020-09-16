@@ -16,7 +16,9 @@ import cn from 'classnames';
 import txPrimaryIcon from '../components/Common/images/tx-primary.png';
 import './local.scss';
 import {withTranslation} from 'react-i18next';
+import { createHashHistory } from 'history';
 
+export const history = createHashHistory();
 const txTag = require('./images/middle_icon_TX.png');
 const indicator = (
   <div>
@@ -334,8 +336,8 @@ class TransactionList extends Component {
   }
 
   renderHash2 = (value) => {
-    const displayValue = value.substr(0, 12) + '...';
-    return <a className='blockNumber' title={T('点击可复制')} href={'/#/Transaction?' + value}>{displayValue}</a>;
+    const displayValue = value.substr(0, 8) + '...' + value.substr(value.length - 6);
+    return <a className='blockNumber' href={'/#/Transaction?' + value}>{displayValue}</a>;
   }
 
   renderDetailInfo2 = (value, index, record) => {
@@ -402,7 +404,7 @@ class TransactionList extends Component {
                 onClick={() => {
                   history.push('/Transaction');
                 }}
-                disabled={this.state.isLoading || !this.state.transactions.length}
+                disabled={this.state.isLoading}
                 >
                 {T('查询交易')}
               </Button>

@@ -546,7 +546,7 @@ class CandidateList extends Component {
             <div class='titleSign'></div>
             <div className='titles'>
               <div className='mainText'>{t('cicles',{cicle: this.state.curEpoch})}</div>
-              <div className='subText'>{('一个周期时长')}:{this.state.duration}</div>
+              <div className='subText'>{T('一个周期时长')}:{this.state.duration}</div>
             </div>
           </div>
           <IceContainer className='listContain' style={{...styles.table}}>

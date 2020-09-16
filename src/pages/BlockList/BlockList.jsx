@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Grid, Table, Pagination } from "@alifd/next";
 import IceContainer from '@icedesign/container';
+import {Link} from 'react-router-dom';
+import Nodata from '../../components/Common/Nodata';
 import * as oexchain from 'oex-web3';
 import { T } from '../../utils/lang';
 import * as utils from '../../utils/utils';
@@ -36,6 +38,7 @@ export default class BlockTable extends Component {
         curMaxBlockNum: 0,
         curMinBlockNum: 0,
         totalTxn: 0,
+        isLoading: true,
     };
   }
 
@@ -58,6 +61,7 @@ export default class BlockTable extends Component {
     
     this.setState({
       blockList: this.state.blockList,
+      isLoading: false,
     });
   }
   
@@ -68,11 +72,11 @@ export default class BlockTable extends Component {
   }
 
   renderBlockNumber = (v) => {
-    return <div style={{color: '#5c67f2'}}>{v}</div>;
+    return <Link to={`/Block?${v}`} className='blockNumber'>{v}</Link>;
   }
 
   renderMiner = (v) => {
-    return <div style={{color: '#5c67f2'}}>{v}</div>;
+    return <div className='blockNumber'>{v}</div>;
   }
 
   renderTimeStamp = (value) => {
@@ -80,7 +84,19 @@ export default class BlockTable extends Component {
   }
 
   renderTxn = (transactions) => {
-    return <div style={{color: '#5c67f2'}}>{transactions.length}</div>;
+    return <div className='blockNumber'>{transactions.length}</div>;
+  }
+
+  renderHash = (value) => {
+    const displayValue = value.substr(0, 8) + '...' + value.substr(value.length - 6);
+    return <div className='blockNumber'>{displayValue}</div>;
+  }
+
+  renderRewardInfo = (value) => {
+    const reward = utils.getReadableNumber(value, 18);
+    return <div>
+            <font className='blockNumber'>{reward} OEX</font>
+          </div>;
   }
 
   render() {
@@ -88,24 +104,31 @@ export default class BlockTable extends Component {
       <div className="progress-table">
         <Row justify='space-between' style={{padding: '0 20px'}}>
           <div>
-            #{this.state.curMinBlockNum}区块至#{this.state.curMaxBlockNum}区块(总共{this.state.curBlockNum.toLocaleString()}个区块)
+            #{this.state.curMinBlockNum}~#{this.state.curMaxBlockNum}
           </div>
-          <Pagination hideOnlyOnePage showJump={false} shape="arrow-only" current={this.state.current} total={this.state.totalTxn} onChange={this.onChange} style={{}} />
+          <Pagination hideOnlyOnePage showJump={false} shape="arrow-only" current={this.state.current} total={this.state.totalTxn} onChange={this.onChange} />
         </Row>
         <IceContainer className="tab-card">
-          <Table isZebra={false}  hasBorder={false}
-            dataSource={this.state.blockList}
-            primaryKey="number"
-            language={T('zh-cn')}
-          >
-            <Table.Column title={T("区块")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
-            <Table.Column title={T("块龄")} dataIndex="timestamp" width={150} cell={this.renderTimeStamp.bind(this)}/>
-            <Table.Column title={T("交易数")} dataIndex="transactions" width={100} cell={this.renderTxn.bind(this)}/>
-            <Table.Column title={T("区块大小(B)")} dataIndex="size" width={100}/>
-            <Table.Column title={T("矿工")} dataIndex="miner" width={100}  cell={this.renderMiner.bind(this)}/>
-            <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={100}/>
-            <Table.Column title={T("哈希")} dataIndex="hash" width={250}/>
-          </Table>
+          {
+          //(!this.state.blockList.length) ? <Nodata/> : (
+            <Table isZebra={false}  hasBorder={false}
+              isLoading={this.state.isLoading}
+              dataSource={this.state.blockList}
+              primaryKey="number"
+              language={T('zh-cn')}
+            >
+              <Table.Column title={T("区块")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
+              <Table.Column title={T("块龄")} dataIndex="timestamp" width={150} cell={this.renderTimeStamp.bind(this)}/>
+              <Table.Column title={T("交易数")} dataIndex="transactions" width={100} cell={this.renderTxn.bind(this)}/>
+              <Table.Column title={T("区块大小(B)")} dataIndex="size" width={100}/>
+              <Table.Column title={T("矿工")} dataIndex="miner" width={100}  cell={this.renderMiner.bind(this)}/>
+              <Table.Column title={T("奖励")} dataIndex="reward" width={100}  cell={this.renderRewardInfo.bind(this)}/>
+              <Table.Column title={T("Gas消耗")} dataIndex="gasUsed" width={100}/>
+              <Table.Column title={T("哈希")} dataIndex="hash" width={250} cell={this.renderHash.bind(this)}/>
+            </Table>
+            //) 
+          }
+          
           <Row justify='end'>
             <Pagination hideOnlyOnePage showJump={false} shape="arrow-only" current={this.state.current} total={this.state.totalTxn} onChange={this.onChange} style={{marginTop: '10px'}} />
           </Row>

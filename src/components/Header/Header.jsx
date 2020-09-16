@@ -50,9 +50,9 @@ class Header extends Component {
       languages: [{value: 'zh', label:'中文'}, {value: 'en', label:'English'}],
       defaultLang,
       curLang: defaultLang,
-      nodes: [{value: constant.mainNetRPCHttpsAddr, label:T('主网：') + constant.mainNetRPCHttpsAddr}, 
-              {value: constant.testNetRPCHttpsAddr, label:T('测试网：') + constant.testNetRPCHttpsAddr}, 
-              {value: constant.LocalRPCAddr, label:T('本地节点：') + constant.LocalRPCAddr}, 
+      nodes: [{value: constant.mainNetRPCHttpsAddr, label:T('主网') + ':' + constant.mainNetRPCHttpsAddr}, 
+              {value: constant.testNetRPCHttpsAddr, label:T('测试网') + ':' + constant.testNetRPCHttpsAddr}, 
+              {value: constant.LocalRPCAddr, label:T('本地节点') + ':' + constant.LocalRPCAddr}, 
               {value: 'others', label: T('自定义')}],
     };
     setLang(this.state.defaultLang);
@@ -235,7 +235,7 @@ class Header extends Component {
           </div>
           {/* <Button text type="normal" style={{color: '#808080', marginLeft: '30px'}} onClick={this.manageAccount.bind(this)}><Icon type="account" />{t('账号管理')}</Button> */}
           &nbsp;&nbsp;
-          <Button text type="normal" style={{color: '#808080', marginLeft: '30px',display: 'flex', alignItems: 'center'}} onClick={this.onChangeLanguage.bind(this)}><img src={language} width='20' style={{marginRight: '15px'}}/>{this.state.languages.filter(item => item.value === this.state.curLang)[0].label}</Button>
+          <Button text type="normal" style={{color: '#808080', marginLeft: '30px',display: 'flex', alignItems: 'center'}} onClick={this.onChangeLanguage.bind(this)}><img src={language} width='20' style={{marginRight: '15px'}}/>{this.state.languages.filter(item => item.value !== this.state.curLang)[0].label}</Button>
           {/* &nbsp;&nbsp;
           <Select language={t('zh-cn')}
             style={{ width: 100 }}
