@@ -160,12 +160,13 @@ class BlocksTableComponent extends Component {
             //(this.state.isLoading || !this.state.blockList.length) ? <Nodata/> : (
               <Table hasHeader={false} isZebra={false}  hasBorder={false}
                 isLoading={this.state.isLoading}
-                loadingComponent={CustomLoading}
+                //loadingComponent={CustomLoading}
                 dataSource={this.state.blockList}
                 primaryKey="number"
                 language={T('zh-cn')}
                 fixedHeader={true}
                 maxBodyHeight={500}
+                emptyContent={<Nodata />}
               >
                 <Table.Column width={40} cell={this.renderHeader.bind(this)}/>
                 <Table.Column title={T("高度")} dataIndex="number" width={60} cell={this.renderBlockNumber.bind(this)}/>

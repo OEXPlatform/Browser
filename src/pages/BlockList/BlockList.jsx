@@ -116,6 +116,7 @@ export default class BlockTable extends Component {
               dataSource={this.state.blockList}
               primaryKey="number"
               language={T('zh-cn')}
+              emptyContent={<Nodata />}
             >
               <Table.Column title={T("区块")} dataIndex="number" width={100} cell={this.renderBlockNumber.bind(this)}/>
               <Table.Column title={T("块龄")} dataIndex="timestamp" width={150} cell={this.renderTimeStamp.bind(this)}/>

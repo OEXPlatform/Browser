@@ -581,8 +581,8 @@ class CandidateList extends Component {
               </Button> */}
                 
             </Row>
-            <Row style={{marginBottom: '10px'}}>
-              <Table primaryKey="name" language={T('zh-cn')} 
+            <Row style={{marginBottom: '10px', width: '100%'}}>
+              <Table primaryKey="name" language={T('zh-cn')} style={{width: '100%'}}
                 isZebra={false}  hasBorder={false} 
                 dataSource={this.state.producerList}
                 rowSelection={this.state.rowSelection}
