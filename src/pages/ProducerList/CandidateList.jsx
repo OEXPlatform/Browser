@@ -6,11 +6,12 @@ import BigNumber from 'bignumber.js';
 import { encode } from 'rlp';
 import * as oexchain from 'oex-web3';
 import * as utils from '../../utils/utils';
-import { T } from '../../utils/lang';
+import { T, isChinese } from '../../utils/lang';
 import * as Constant from '../../utils/constant';
 import TxSend from "../TxSend";
 import './local.scss';
 import leftBg from './images/dot-left-bg.png';
+import leftBgEn from './images/dot-left-bg-en.png';
 import Nodata from '../../components/Common/Nodata';
 import {withTranslation} from 'react-i18next';
 
@@ -541,7 +542,7 @@ class CandidateList extends Component {
     return (
       <div className='contain' sytle={styles.all}>
         <div className='mainContainer'> 
-          <div className='leftBg'><img src={leftBg} width='519'/></div>
+          <div className='leftBg'><img src={isChinese() ? leftBg : leftBgEn} width='519'/></div>
           <div className='cicles'>
             <div class='titleSign'></div>
             <div className='titles'>

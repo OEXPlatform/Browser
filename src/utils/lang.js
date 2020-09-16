@@ -619,4 +619,8 @@ const ch2en = {
     }
   }
 
-  export { T, setLang }
+  function isChinese() {
+    return isCh;
+  }
+
+  export { T, setLang, isChinese }
