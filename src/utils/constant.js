@@ -59,8 +59,8 @@ export const BlockStatus = { Rollbacked: -1, Irreversible: 0, Reversible: 1, Unk
 export const SysTokenId = 0;
 export const SysTokenDecimal = 18;
 
-export const mainNetRPCHttpsAddr = 'http://www.oexchain.io:8080'; 
-export const testNetRPCHttpsAddr = 'http://testnet.oexchain.io:8080';
+export const mainNetRPCHttpsAddr = 'https://mainnet.oexchain.io'; 
+export const testNetRPCHttpsAddr = 'https://testnet.oexchain.io';
 export const LocalRPCAddr = 'http://127.0.0.1:8545';
 
 // 创建账户的代理服务器
