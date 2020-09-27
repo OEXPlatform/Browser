@@ -564,6 +564,7 @@
     "blockInfo": "Block Info",
     "dashboard": "Dashboard",
     "txSearch":"Transications",
+    "accountSearch":"Account",
     "searchPlaceholder_bk":"Height／Hash",
     "searchPlaceholder_tx":"TxHash",
     "transications":"{{number}} Transications",

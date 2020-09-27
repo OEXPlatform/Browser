@@ -564,7 +564,7 @@ const ch2en = {
   '块龄' : 'Time',
   '用户资产信息查询' : 'User Asset Info',
   '资产发行信息查询' : 'Asset Issue Info',
-  '账户名' : 'Account',
+  '账户名' : 'Account Name',
   '资产描述' : 'Asset Description',
   "确定": "OK",
   "高度/哈希" : "height/hash",
@@ -595,7 +595,12 @@ const ch2en = {
   "Android下载": "Android Download",
   "查看所有区块": "Display all blocks",
   "暂无数据": "No Data",
-  "全部区块": "All blocks"
+  "全部区块": "All blocks",
+  "账号完整信息": "Account Detail Info",
+  "账号资产列表": "Account Assets",
+  "资产精度": "Asset Decimals",
+  "资产数量": "Asset Balance",
+  "官方账户(点击账户名可查询)": "Official Accounts(click to search)"
   }
 
   let isCh = true;

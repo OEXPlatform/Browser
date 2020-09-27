@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 
 import Block from './pages/Block';
 import BlockList from './pages/BlockList';
+import AccountSearch from './pages/AccountSearch';
 import ProducerList from './pages/ProducerList';
 import Download from './pages/Download';
 
@@ -39,6 +40,11 @@ const routerConfig = [
     path: '/Transaction',
     layout: BasicLayout,
     component: Block,
+  },
+  {
+    path: '/AccountSearch',
+    layout: BasicLayout,
+    component: AccountSearch,
   },
   {
     path: '/producerList',

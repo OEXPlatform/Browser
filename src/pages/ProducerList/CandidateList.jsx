@@ -592,13 +592,13 @@ class CandidateList extends Component {
               >
                 <Table.Column title={T("候选者账号")} dataIndex="name" width={100} cell={this.nameRender.bind(this)} />
                 <Table.Column title="URL" dataIndex="url" width={80} />
-                <Table.Column title={T("状态")} dataIndex="type" width={120} cell={this.typeRender.bind(this)}/>
+                <Table.Column title={T("状态")} dataIndex="type" width={80} cell={this.typeRender.bind(this)}/>
                 <Table.Column title={T("抵押票数")} dataIndex="quantity" width={90} sortable />
-                <Table.Column title={T("总投票数")} dataIndex="totalQuantity" width={60} sortable />
-                <Table.Column title={T("最近一次DPOS相关操作的区块高度")} dataIndex="number" width={130} cell={this.numberRender.bind(this)} />
+                <Table.Column title={T("总投票数")} dataIndex="totalQuantity" width={90} sortable />
+                <Table.Column title={T("最近一次DPOS相关操作的区块高度")} dataIndex="number" width={180} cell={this.numberRender.bind(this)} />
                 <Table.Column title={T("实出块数")} dataIndex="actualCounter" width={160} sortable cell={this.counterRender.bind(this)} />
                 <Table.Column title={T("应出块数")} dataIndex="shouldCounter" width={130} sortable cell={this.shouldCounterRender.bind(this)}  />
-                <Table.Column title={T("我的投票")} dataIndex="name" width={100} cell={this.renderMyVote.bind(this)} />
+                {/* <Table.Column title={T("我的投票")} dataIndex="name" width={100} cell={this.renderMyVote.bind(this)} /> */}
               </Table>
             </Row>
             

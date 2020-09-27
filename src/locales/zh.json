@@ -563,6 +563,7 @@
     "blockInfo":"区块查询",
     "dashboard":"链上数据",
     "txSearch":"交易查询",
+    "accountSearch":"账号查询",
     "searchPlaceholder_bk":"区块高度／哈希值",
     "searchPlaceholder_tx":"交易哈希值",
     "transications":"{{number}} 交易",
