@@ -66,10 +66,7 @@ export default class AccountComponent extends Component {
     this.setState({accountName: v});
   }
 
-  getReadableNumber = (value, assetID) => {
-    let {assetInfos} = this.state;
-    var decimals = assetInfos[assetID].decimals;
-
+  getReadableNumber = (value, decimals) => {
     var renderValue = new BigNumber(value);
     renderValue = renderValue.shiftedBy(decimals * -1);
     
@@ -86,6 +83,11 @@ export default class AccountComponent extends Component {
 
   symbolRender = (symbol) => {
     return symbol.toUpperCase();
+  }
+
+  balanceRender = (balance, index, assetInfo) => {
+    const readableValue = this.getReadableNumber(balance, assetInfo.decimals);
+    return readableValue + ' ' + assetInfo.symbol.toUpperCase() + ' [' + balance + ']';
   }
 
   render() {
@@ -121,7 +123,7 @@ export default class AccountComponent extends Component {
                 <Table.Column title={T("资产名")} dataIndex="assetName" width={100}/>
                 <Table.Column title={T("资产符号")} dataIndex="symbol" width={100} cell={this.symbolRender.bind(this)}/>
                 <Table.Column title={T("资产精度")} dataIndex="decimals" width={100} />
-                <Table.Column title={T("资产数量")} dataIndex="balance" width={100} />
+                <Table.Column title={T("资产数量")} dataIndex="balance" width={100} cell={this.balanceRender.bind(this)}/>
               </Table>
             </Row>
           </IceContainer>
