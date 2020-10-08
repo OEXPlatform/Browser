@@ -59,15 +59,15 @@ export const BlockStatus = { Rollbacked: -1, Irreversible: 0, Reversible: 1, Unk
 export const SysTokenId = 0;
 export const SysTokenDecimal = 18;
 
-export const mainNetRPCHttpsAddr = 'https://mainnet.oexchain.io'; 
-export const testNetRPCHttpsAddr = 'https://testnet.oexchain.io';
+export const mainNetRPCHttpsAddr = 'https://mainnet.oexchain.com'; 
+export const testNetRPCHttpsAddr = 'https://testnet.oexchain.com';
 export const LocalRPCAddr = 'http://127.0.0.1:8545';
 
 // 创建账户的代理服务器
-export const proxySrvAddr = {1: 'http://oexchain.io:9000', 100: 'http://testnet.oexchain.io:9001'};
+export const proxySrvAddr = {1: 'http://oexchain.com:9000', 100: 'http://testnet.oexchain.com:9001'};
 
 // 账户创建代理服务器会连接此RPC接口注册账户
-export const chainId2RPC = {1: {rpcHost: 'mainnet.oexchain.io/', rpcPort: 8080}, 100: {rpcHost: 'testnet.oexchain.io', rpcPort: 8081}};
+export const chainId2RPC = {1: {rpcHost: 'mainnet.oexchain.com/', rpcPort: 8080}, 100: {rpcHost: 'testnet.oexchain.com', rpcPort: 8081}};
 
 export const ShareCoding = {'ABI' : '[{"constant":false,"inputs":[{"name":"tokenIds","type":"uint256[]"}],"name":"removeAcceptToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"disableShare","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"tokenIds","type":"uint256[]"}],"name":"addAcceptToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_toCoder","type":"address"}],"name":"giveReward","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"sharedAccounts","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"rewardMap","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"acceptTokenMap","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"enableShare","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"sharedAccountMap","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"rewards","outputs":[{"name":"from","type":"address"},{"name":"toCoder","type":"address"},{"name":"tokenId","type":"uint256"},{"name":"amount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"}]'};
 export const URC20ABI = [
