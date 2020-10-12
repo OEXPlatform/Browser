@@ -39,7 +39,7 @@ export default class AssetComponent extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://api.oexchain.com/api/rpc/gettokens?pageIndex=0&pageSize=100").then(response => {
+    fetch("https://api.oexchain.com/api/rpc/gettokens?pageIndex=0&pageSize=100").then(response => {
       return response.json();
     }).then(tokensInfo => {
       if (tokensInfo != null && tokensInfo.data != null) {
