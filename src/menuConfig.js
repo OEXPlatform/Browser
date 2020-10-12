@@ -25,6 +25,11 @@ const headerMenuConfig = [
     path: '/AccountSearch',
     icon: 'search',
   },
+  {
+    name: 'assetSearch',
+    path: '/AssetSearch',
+    icon: 'search',
+  },
   // {
   //   name: '资产',
   //   path: '/assetOperator',

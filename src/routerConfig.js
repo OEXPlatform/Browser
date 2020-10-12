@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard';
 import Block from './pages/Block';
 import BlockList from './pages/BlockList';
 import AccountSearch from './pages/AccountSearch';
+import AssetSearch from './pages/AssetSearch';
 import ProducerList from './pages/ProducerList';
 import Download from './pages/Download';
 
@@ -45,6 +46,11 @@ const routerConfig = [
     path: '/AccountSearch',
     layout: BasicLayout,
     component: AccountSearch,
+  },
+  {
+    path: '/AssetSearch',
+    layout: BasicLayout,
+    component: AssetSearch,
   },
   {
     path: '/producerList',

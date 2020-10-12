@@ -558,7 +558,7 @@ class CandidateList extends Component {
               <Row align='center'>
                 <img src={pieceImg} style={{ marginRight: '5px' }}/>{T("可出块节点")}
                 <img src={isapieceofImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("正在出块的节点")}
-                <img src={myImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("我的节点")}
+                {/* <img src={myImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("我的节点")} */}
                 <img src={alternativenodesImg} style={{ marginLeft: '20px', marginRight: '5px' }} />{T("备选节点")}
               </Row>
               {/* <Button style={styles.btn} type="primary" onClick={this.vote.bind(this)} disabled={this.state.bUnRegProducer}>
