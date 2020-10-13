@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Input, Icon, Table} from "@alifd/next";
+import { Button, Grid, Input, Icon, Table, Dialog, Pagination } from "@alifd/next";
 import IceContainer from '@icedesign/container';
 import * as oexchain from 'oex-web3'
 import ReactJson from 'react-json-view';
@@ -16,7 +16,7 @@ import blockIcon from '../../components/Common/images/block-white.png';
 import txIcon from '../../components/Common/images/tx-black.png';
 import Nodata from '../../components/Common/Nodata';
 
-const { Row, Col } = Grid;
+const { Row } = Grid;
 
 export default class AssetComponent extends Component {
   static displayName = 'Account';
@@ -34,7 +34,14 @@ export default class AssetComponent extends Component {
         txFrom: {},
         txRawData: {},
         txReceiptData: {},
-        assetList: []
+        assetList: [],
+        accountListVisible: false,
+        assetAccountList: [],
+        curAssetInfo: {},
+        current: 1,
+        totalAccountsNum: 0,
+        pageSize: 10,
+        isLoading: true,
     };
   }
 
@@ -88,6 +95,30 @@ export default class AssetComponent extends Component {
     return readableValue + ' ' + assetInfo.symbol.toUpperCase();
   }
 
+  accountAssetBalanceRender = (balance) => {
+    return this.balanceRender(balance, null, this.state.curAssetInfo);
+  }
+
+  accountStatRender = (stat, index, assetInfo) => {
+    return <Button text onClick={() => this.showAccountsTable(assetInfo, 0)}>{stat}</Button>
+  }
+
+  showAccountsTable = (assetInfo, pageIndex) => {
+    fetch("https://api.oexchain.com/api/rpc/getassetinfo?pageIndex=" + pageIndex + "&pageSize=" + this.state.pageSize + "&assetid=" + assetInfo.assetId).then(response => {
+      return response.json();
+    }).then(tokensInfo => {
+      if (tokensInfo != null && tokensInfo.data != null) {
+        const assetAccountList = tokensInfo.data.list;
+        this.setState({assetAccountList, accountListVisible: true, curAssetInfo: assetInfo, totalAccountsNum: tokensInfo.data.total, isLoading: false});
+      }
+    })
+  }
+
+  onChange = (currentPage) => {
+    this.setState({current: currentPage, isLoading: true});
+    this.showAccountsTable(this.state.curAssetInfo, currentPage);
+  }
+
   render() {
 
     const {match, t} = this.props;
@@ -121,12 +152,38 @@ export default class AssetComponent extends Component {
                 <Table.Column title={T("资产名")} dataIndex="assetName" width={100} cell={this.assetNameRender.bind(this)}/>
                 <Table.Column title={T("流通量")} dataIndex="amount" width={100} cell={this.balanceRender.bind(this)}/>
                 <Table.Column title={T("可发行总量")} dataIndex="upperLimit" width={100} cell={this.balanceRender.bind(this)}/>
-                <Table.Column title={T("持有账户数")} dataIndex="stats" width={100} />
+                <Table.Column title={T("持有账户数")} dataIndex="stats" width={100}  cell={this.accountStatRender.bind(this)}/>
                 <Table.Column title={T("交易数量")} dataIndex="transfers" width={100}/>
               </Table>
             </Row>
           </IceContainer>
         </div>
+        <Dialog language={T('zh-cn')} style={{ width: '70%', height: '80%', marginTop: '-50px'}}
+          visible={this.state.accountListVisible}
+          shouldUpdatePosition={true}
+          title={T("账户列表")}
+          closeable="esc,close"
+          onOk={() => {this.setState({accountListVisible: false})}}
+          onCancel={() => {this.setState({accountListVisible: false})}}
+          onClose={() => {this.setState({accountListVisible: false})}}
+          footer={<view></view>}
+        >
+          <IceContainer className="tab-card">
+            <Table isZebra={false}  hasBorder={false}
+              isLoading={this.state.isLoading}
+              dataSource={this.state.assetAccountList}
+              primaryKey="number"
+              language={T('zh-cn')}
+              emptyContent={<Nodata />}
+            >
+              <Table.Column title={T("账户")} dataIndex="account" width={100}/>
+              <Table.Column title={T("资产")} dataIndex="quantity" width={150} cell={this.accountAssetBalanceRender.bind(this)}/>
+            </Table>
+          <Row justify='end'>
+            <Pagination hideOnlyOnePage showJump={false} shape="arrow-only" current={this.state.current} pageSize={this.state.pageSize} total={this.state.totalAccountsNum} onChange={this.onChange} style={{marginTop: '10px'}} />
+          </Row>
+        </IceContainer>
+        </Dialog>
       </div>
     );
   }
