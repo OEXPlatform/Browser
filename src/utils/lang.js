@@ -600,7 +600,15 @@ const ch2en = {
   "账号资产列表": "Account Assets",
   "资产精度": "Asset Decimals",
   "资产数量": "Asset Balance",
-  "官方账户(点击账户名可查询)": "Official Accounts(click to search)"
+  "官方账户(点击账户名可查询)": "Official Accounts(click to search)",
+  "账户列表": "Account List",
+  "资产完整信息": "Asset Information",
+  "所有资产列表": "Assets List",
+  "账户": "Account",
+  "流通量": "Amount",
+  "可发行总量": "Upper Limit",
+  "持有账户数": "Accounts Number",
+  "交易数量": "Txn"
   }
 
   let isCh = true;
