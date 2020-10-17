@@ -16,8 +16,8 @@ const ch2en = {
   "账号格式错误":"Account format error",
   "账号已存在，不可重复导入!":"The account already exists and cannot be imported repeatedly!",
   "账户不存在":"Account does not exist",
-  "成功":"success",
-  "失败":"failure",
+  "成功":"Success",
+  "失败":"Failure",
   "无":"no",
   "查看":"View",
   "已复制到粘贴板":"Copied to pasteboard",
@@ -608,7 +608,16 @@ const ch2en = {
   "流通量": "Amount",
   "可发行总量": "Upper Limit",
   "持有账户数": "Accounts Number",
-  "交易数量": "Txn"
+  "交易数量": "Txn",
+  "账号交易列表" : "Transactions of Account",
+  "交易hash": "Transaction hash",
+  "区块hash": "Block hash",
+  "交易时间": "Time",
+  "交易结果": "Status",
+  "交易时间": "Time",
+  "创建合约": "Create Contract",
+  "调用合约": "Invoke Contract",
+  "更新账户": "Update Account",
   }
 
   let isCh = true;
