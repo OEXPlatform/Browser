@@ -17,6 +17,7 @@ import txPrimaryIcon from '../components/Common/images/tx-primary.png';
 import './local.scss';
 import {withTranslation} from 'react-i18next';
 import { createHashHistory } from 'history';
+import { unix } from 'moment';
 
 export const history = createHashHistory();
 const txTag = require('./images/middle_icon_TX.png');
@@ -53,7 +54,6 @@ class TransactionList extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
     oexchain.account.getAssetInfoById(0).then(assetInfo => {
       this.state.assetInfos[0] = assetInfo;
     });
@@ -67,6 +67,7 @@ class TransactionList extends Component {
     if (nextProps.txFrom.blockHeight != null) {
       this.getTxInfoByBlock(nextProps.txFrom.blockHeight);
     } else if (nextProps.txFrom.txHashArr != null) {
+      this.state.transactions = [];
       await this.getTxInfoByTxHash(nextProps.txFrom.txHashArr);
     }
   }
@@ -79,9 +80,6 @@ class TransactionList extends Component {
 
   getTxInfoByTxHash = async (txHashArr) => {
     let txPromiseArr = [];
-    // for (let i = 0; i < txHashArr.length; i++) {
-
-    // }
     txHashArr.map(txHash => {
       if (this.state.txHashSet[txHash] == null) {
         txPromiseArr.push(oexchain.oex.getTransactionByHash(txHash));
@@ -376,7 +374,21 @@ class TransactionList extends Component {
     return parseActions[0].error ? <Balloon  trigger={t(`status${parseActions[0].status}`)} closable={false}>{parseActions[0].error}</Balloon> : t(`status${parseActions[0].status}`);
   }
 
+  filterDupTx = () => {
+    const existTxHash = {};
+    const uniTxs = [];
+    console.log(existTxHash, this.state.transactions);
+    this.state.transactions.map(txInfo => {
+      if (existTxHash[txInfo.txHash] != true) {
+        uniTxs.push(txInfo);
+        existTxHash[txInfo.txHash] = true;
+      }
+    });
+    this.state.transactions = uniTxs;
+  }
+
   render() {
+    this.filterDupTx();
     return (
       <div className="progress-table">
         {
@@ -416,6 +428,7 @@ class TransactionList extends Component {
                   language={T('zh-cn')}
                   dataSource={this.state.transactions}
                   fixedHeader={true}
+                  isLoading={this.state.isLoading}
                 >
                   <Table.Column title={T("交易哈希")} dataIndex="txHash" width={80} cell={this.renderHash.bind(this)}/>
                   <Table.Column title={T("区块哈希")} dataIndex="blockHash" width={80} cell={this.renderHash.bind(this)}/>

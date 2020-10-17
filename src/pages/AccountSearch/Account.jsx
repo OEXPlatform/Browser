@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Grid, Input, Icon, Table} from "@alifd/next";
+import { Button, Grid, Input, Icon, Table, Pagination } from "@alifd/next";
 import IceContainer from '@icedesign/container';
 import * as oexchain from 'oex-web3'
 import ReactJson from 'react-json-view';
@@ -12,6 +12,9 @@ import './local.scss';
 import {withRouter, Route} from 'react-router-dom';
 import cn from 'classnames';
 import {withTranslation} from 'react-i18next';
+import TransactionList from '../../TransactionList';
+import * as utils from '../../utils/utils';
+import * as txParser from '../../utils/transactionParser';
 import blockIcon from '../../components/Common/images/block-white.png';
 import txIcon from '../../components/Common/images/tx-black.png';
 import Nodata from '../../components/Common/Nodata';
@@ -30,11 +33,13 @@ export default class AccountComponent extends Component {
         txNum: '',
         transactions: [],
         assetInfos: {},
-        onePageNum: 10,
+        pageSize: 10,
         txFrom: {},
         txRawData: {},
         txReceiptData: {},
-        assetList: []
+        assetList: [],
+        current: 1,
+        totalAccountTxsNum: 0
     };
   }
 
@@ -59,6 +64,24 @@ export default class AccountComponent extends Component {
         })
       })
       this.setState({accountInfo});
+    });
+    this.showAccountTxTable(this.state.accountName, 0);
+  }
+
+  onChange = (currentPage) => {
+    this.setState({current: currentPage, isLoading: true});
+    this.showAccountTxTable(this.state.accountName, currentPage);
+  }
+
+  showAccountTxTable = (accountName, pageIndex) => {
+    fetch("https://api.oexchain.com/api/otransactioninfo/gettransactionforme?pageIndex=" + pageIndex + "&pageSize=" + this.state.pageSize + "&account=" + accountName).then(response => {
+      return response.json();
+    }).then(txInfo => {
+      if (txInfo != null && txInfo.data != null) {
+        console.log(txInfo.data.total);
+        const txList = txInfo.data.list;
+        this.setState({txList, totalAccountTxsNum: txInfo.data.total});
+      }
     })
   }
 
@@ -88,6 +111,29 @@ export default class AccountComponent extends Component {
   balanceRender = (balance, index, assetInfo) => {
     const readableValue = this.getReadableNumber(balance, assetInfo.decimals);
     return readableValue + ' ' + assetInfo.symbol.toUpperCase() + ' [' + balance + ']';
+  }
+
+  txHashRender = (value) => {
+    const displayValue = value.substr(0, 8) + '...' + value.substr(value.length - 6);
+    return <a className='txHash' href={'/#/Transaction?' + value} target='_blank'>{displayValue}</a>;
+  }
+
+  blockHashRender = (value) => {
+    const displayValue = value.substr(0, 8) + '...' + value.substr(value.length - 6);
+    return <a className='blockHash' href={'/#/Block?' + value} target='_blank'>{displayValue}</a>;
+  }
+
+  txTypeRender = (value) => {
+    return txParser.getActionTypeStr(value);
+  }
+
+  txResultRender = (value) => {
+    value = JSON.parse(value);
+    return (value.status == '1') ? T('成功') : T('失败');
+  }
+
+  timestampRender = (value) => {
+    return utils.getBlockTime(value);
   }
 
   render() {
@@ -125,6 +171,27 @@ export default class AccountComponent extends Component {
                 <Table.Column title={T("资产精度")} dataIndex="decimals" width={100} />
                 <Table.Column title={T("资产数量")} dataIndex="balance" width={100} cell={this.balanceRender.bind(this)}/>
               </Table>
+            </Row>
+          </IceContainer>
+          <IceContainer className={cn('block-container')}>
+            <h4 className={cn('title')}> <img src={txIcon} width='24'/>{T("账号交易列表")}</h4>
+            <Row style={{marginBottom: '10px', width: '100%'}}>
+              <Table primaryKey="name" language={T('zh-cn')} style={{width: '100%'}}
+                isZebra={false}  hasBorder={false} 
+                dataSource={this.state.txList}
+                emptyContent={<Nodata />}
+              >
+                <Table.Column title={T("交易hash")} dataIndex="actionhash" width={100} cell={this.txHashRender.bind(this)}/>
+                <Table.Column title={T("区块hash")} dataIndex="blockhash" width={100} cell={this.blockHashRender.bind(this)}/>
+                <Table.Column title={T("区块高度")} dataIndex="blocknumber" width={100} />
+                <Table.Column title={T("交易时间")} dataIndex="transactiontime" width={100} cell={this.timestampRender.bind(this)}/>
+                <Table.Column title={T("交易类型")} dataIndex="actiontype" width={100} cell={this.txTypeRender.bind(this)}/>
+                <Table.Column title={T("交易结果")} dataIndex="actiondata" width={100} cell={this.txResultRender.bind(this)}/>
+                {/* <Table.Column title={T("交易详情")} dataIndex="actiondata" width={100} cell={this.txDetailRender.bind(this)}/> */}
+              </Table>
+            </Row>
+            <Row justify='end'>
+              <Pagination hideOnlyOnePage showJump={false} shape="arrow-only" current={this.state.current} pageSize={this.state.pageSize} total={this.state.totalAccountTxsNum} onChange={this.onChange} style={{marginTop: '10px'}} />
             </Row>
           </IceContainer>
           
