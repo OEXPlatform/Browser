@@ -105,8 +105,8 @@ function parseAction(actionInfo, assetInfo, allAssetInfos, dposInfo) {
     switch (actionType) {
       case actionTypes.TRANSFER:
         actionParseInfo.actionType = '转账';
-        actionParseInfo.detailInfo = `${fromAccount}->${toAccount} ` + T('转账') + ` ${readableNum}${assetInfo.symbol}`;
-        actionParseInfo.detailObj = { accountName: fromAccount, toAccountName: toAccount, amount: readableNum, symbol: assetInfo.symbol };
+        actionParseInfo.detailInfo = `${fromAccount}->${toAccount} ` + T('转账') + ` ${readableNum} ${assetInfo.symbol.toUpperCase()}`;
+        actionParseInfo.detailObj = { accountName: fromAccount, toAccountName: toAccount, amount: readableNum, symbol: assetInfo.symbol.toUpperCase() };
         break;
       case actionTypes.CREATE_CONTRACT:
         actionParseInfo.actionType = '创建合约';
@@ -365,7 +365,7 @@ function parseAction(actionInfo, assetInfo, allAssetInfos, dposInfo) {
      && actionInfo.actionType !== actionTypes.DESTORY_ASSET 
      && actionInfo.actionType !== actionTypes.REG_CANDIDATE 
      && actionInfo.actionType !== actionTypes.UPDATE_CANDIDATE) {
-      actionParseInfo.detailInfo += ',' + T('新账号收到转账') + ':' + readableNum + assetInfo.symbol;
+      actionParseInfo.detailInfo += ',' + T('新账号收到转账') + ':' + readableNum + ' ' + assetInfo.symbol.toUpperCase();
     }
     actionParseInfo.actionType = T(actionParseInfo.actionType);
     return actionParseInfo;
