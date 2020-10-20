@@ -770,7 +770,7 @@ export default class AccountList extends Component {
       if (utils.isEmptyObj(item.gasFee)) {
         return '';
       }
-      const earnedGasFee = utils.getGasEarned(record.gasPrice, item.gasFee, this.state.assetInfos[record.gasAssetID]) + 'oex';
+      const earnedGasFee = utils.getGasEarned(record.gasPrice, item.gasFee, this.state.assetInfos[record.gasAssetID]) + 'OEX';
       const defaultTrigger = <Tag type="normal" size="small">{earnedGasFee}</Tag>;
       return <Balloon trigger={defaultTrigger} closable={false}>{earnedGasFee}</Balloon>;
     });
@@ -788,7 +788,7 @@ export default class AccountList extends Component {
       } else if (gasAllot.typeId === 1) {
         reason = T('合约的发行者');
       }
-      const earnedGasFee = utils.getGasEarned(record.gasPrice, gasAllot.gas, this.state.assetInfos[record.gasAssetID]) + 'oex';
+      const earnedGasFee = utils.getGasEarned(record.gasPrice, gasAllot.gas, this.state.assetInfos[record.gasAssetID]) + 'OEX';
       const defaultTrigger = <Tag type="normal" size="small">{gasAllot.name}{reason}{T('分到')} {earnedGasFee}</Tag>;
       return <Balloon trigger={defaultTrigger} closable={false}>{gasAllot.name}{reason}{T('分到')} {earnedGasFee}</Balloon>;
     });

@@ -123,7 +123,7 @@ class TransactionList extends Component {
             parsedAction['status'] = actionResults[i].status;
             parsedAction['error'] = actionResults[i].error;
             parsedAction['result'] = actionResults[i].status == 1 ? T('成功') : T('失败') ;
-            parsedAction['gasFee'] = utils.getGasEarned(transaction.gasPrice, actionResults[i].gasUsed, _this.state.assetInfos[transaction.gasAssetID]) + ' oex';
+            parsedAction['gasFee'] = utils.getGasEarned(transaction.gasPrice, actionResults[i].gasUsed, _this.state.assetInfos[transaction.gasAssetID]) + ' OEX';
             parsedAction['fromAccount'] = actionInfo.from;
 
             parsedAction['signAccount'] = actionInfo.from;
@@ -262,8 +262,8 @@ class TransactionList extends Component {
         reason = T('合约的发行者');
       }
       const earnedGas = utils.getGasEarned(record.gasPrice, gasAllot.gas, this.state.assetInfos[record.gasAssetID]);
-      const defaultTrigger = <Tag type="normal" size="small">{gasAllot.name}{reason}分到 {earnedGas}oex</Tag>;
-      return <Balloon trigger={defaultTrigger} closable={false}>{gasAllot.name}{reason}分到 {earnedGas}oex</Balloon>;
+      const defaultTrigger = <Tag type="normal" size="small">{gasAllot.name}{reason}分到 {earnedGas}OEX</Tag>;
+      return <Balloon trigger={defaultTrigger} closable={false}>{gasAllot.name}{reason}分到 {earnedGas}OEX</Balloon>;
     });
   }
 

@@ -1681,7 +1681,7 @@ export default class ContractManager extends Component {
             hasLimitHint
           />
           <br />
-          1Gaoex = 10<sup>-9</sup>oex = 10<sup>9</sup>aoex
+          1Gaoex = 10<sup>-9</sup>OEX = 10<sup>9</sup>aoex
           <br />
           <br />
           <Input hasClear hasLimitHint
