@@ -61,7 +61,7 @@ export default class Footer extends PureComponent {
           </div> */}
         </div>
         <div className="copyright">
-          © 2019 Theme designed by oex.com &emsp; | &emsp;<a href='mailto:oexfund@gmail.com' className='copyright-link'>oexfund@gmail.com</a>
+          © 2019 Theme designed by oex.com &emsp; | &emsp; 冀ICP备2020025490号-2 | &emsp;<a href='mailto:oexfund@gmail.com' className='copyright-link'>oexfund@gmail.com</a>
         </div>
       </Layout.Footer>
     );
