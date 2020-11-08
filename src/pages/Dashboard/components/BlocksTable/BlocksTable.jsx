@@ -159,7 +159,7 @@ class BlocksTableComponent extends Component {
           {
             //(this.state.isLoading || !this.state.blockList.length) ? <Nodata/> : (
               <Table hasHeader={false} isZebra={false}  hasBorder={false}
-                isLoading={this.state.isLoading}
+                loading={this.state.isLoading}
                 //loadingComponent={CustomLoading}
                 dataSource={this.state.blockList}
                 primaryKey="number"

@@ -377,7 +377,6 @@ class TransactionList extends Component {
   filterDupTx = () => {
     const existTxHash = {};
     const uniTxs = [];
-    console.log(existTxHash, this.state.transactions);
     this.state.transactions.map(txInfo => {
       if (existTxHash[txInfo.txHash] != true) {
         uniTxs.push(txInfo);
@@ -396,7 +395,7 @@ class TransactionList extends Component {
             <IceContainer title={<span className='table-title'><img src={txIcon}/>{T("交易")}</span>}>
               {(this.state.isLoading || !this.state.transactions.length) ? <Nodata /> : (
                 <Table primaryKey="txHash" isZebra={false}  hasBorder={false} 
-                  isLoading={this.state.isLoading}
+                  loading={this.state.isLoading}
                   loadingComponent={CustomLoading}
                   language={T('zh-cn')} hasHeader={false} 
                   dataSource={this.state.transactions}
@@ -428,7 +427,7 @@ class TransactionList extends Component {
                   language={T('zh-cn')}
                   dataSource={this.state.transactions}
                   fixedHeader={true}
-                  isLoading={this.state.isLoading}
+                  loading={this.state.isLoading}
                 >
                   <Table.Column title={T("交易哈希")} dataIndex="txHash" width={80} cell={this.renderHash.bind(this)}/>
                   <Table.Column title={T("区块哈希")} dataIndex="blockHash" width={80} cell={this.renderHash.bind(this)}/>
