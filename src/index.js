@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
@@ -50,9 +50,11 @@ if (!ICE_CONTAINER) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <I18nextProvider i18n={i18n}>
-      <ConnectedRouter history={history}>{router()}</ConnectedRouter>
-    </I18nextProvider>
+    <Suspense fallback='loading'>
+      <I18nextProvider i18n={i18n}>
+          <ConnectedRouter history={history}>{router()}</ConnectedRouter>
+      </I18nextProvider>
+    </Suspense>
   </Provider>,
   ICE_CONTAINER
 );

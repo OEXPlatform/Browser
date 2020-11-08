@@ -112,7 +112,7 @@ export default class BlockTable extends Component {
           {
           //(!this.state.blockList.length) ? <Nodata/> : (
             <Table isZebra={false}  hasBorder={false}
-              isLoading={this.state.isLoading}
+              loading={this.state.isLoading}
               dataSource={this.state.blockList}
               primaryKey="number"
               language={T('zh-cn')}

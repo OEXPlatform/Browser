@@ -170,7 +170,7 @@ export default class AssetComponent extends Component {
         >
           <IceContainer className="tab-card">
             <Table isZebra={false}  hasBorder={false}
-              isLoading={this.state.isLoading}
+              loading={this.state.isLoading}
               dataSource={this.state.assetAccountList}
               primaryKey="number"
               language={T('zh-cn')}
