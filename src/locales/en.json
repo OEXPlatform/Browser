@@ -566,6 +566,7 @@
     "txSearch":"Transications",
     "accountSearch":"Account",
     "assetSearch":"Asset",
+    "contractDev" : "Contract Develop",
     "searchPlaceholder_bk":"Height／Hash",
     "searchPlaceholder_tx":"TxHash",
     "transications":"{{number}} Transications",

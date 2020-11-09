@@ -35,15 +35,15 @@ const headerMenuConfig = [
   //   path: '/assetOperator',
   //   icon: 'ul-list'
   // },
-  // {
-  //   name: '合约开发工具',
-  //   path: '/contractDev',
-  //   icon: 'code',
-  // },
   {
     name: 'producers',
     path: '/producerList',
     icon: 'repair',
+  },
+  {
+    name: 'contractDev',
+    path: '/devTool',
+    icon: 'code',
   },
   // {
   //   name: '原始交易构造',

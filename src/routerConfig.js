@@ -14,6 +14,7 @@ import AccountSearch from './pages/AccountSearch';
 import AssetSearch from './pages/AssetSearch';
 import ProducerList from './pages/ProducerList';
 import Download from './pages/Download';
+import DevTool from './pages/DevTool';
 
 
 const routerConfig = [
@@ -56,6 +57,11 @@ const routerConfig = [
     path: '/producerList',
     layout: BasicLayout,
     component: ProducerList,
+  },
+  {
+    path: '/devTool',
+    layout: BasicLayout,
+    component: DevTool,
   },
 ];
 
