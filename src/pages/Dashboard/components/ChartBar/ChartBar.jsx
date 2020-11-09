@@ -44,7 +44,7 @@ export default class Demo extends Component {
 
   render () {
     return (
-          <ComposedChart width={1200} height={400} data={this.state.userData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+          <ComposedChart width={document.body.scrollWidth * 0.75} height={400} data={this.state.userData} margin={{ top: 20, right: 0, bottom: 20, left: 0 }}>
             <XAxis dataKey={T("日期")}/>
             <YAxis />
             <Legend />
