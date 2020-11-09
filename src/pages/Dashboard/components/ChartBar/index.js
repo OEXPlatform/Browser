@@ -1,3 +1,3 @@
-import ChartBar from './ChartBarS';
+import ChartBar from './ChartBar';
 
 export default ChartBar;

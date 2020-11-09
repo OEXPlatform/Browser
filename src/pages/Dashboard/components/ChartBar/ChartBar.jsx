@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Chart, Interval, Line, Point, Tooltip } from 'bizcharts';
-import {withTranslation} from 'react-i18next';
-import {compose} from 'redux';
-import {withRouter, Link} from 'react-router-dom';
+import { ResponsiveContainer, ComposedChart, Line, Bar, Area, Scatter, XAxis,
+  YAxis, ReferenceLine, ReferenceDot, Tooltip, Legend, CartesianGrid, Brush,
+  LineChart } from 'recharts';
+import { T } from '../../../../utils/lang';
 
-class ChartBar extends Component {
-  static displayName = 'ChartBar';
+// eslint-disable-next-line react/prefer-stateless-function
+export default class Demo extends Component {
 
+  static displayName = 'ComposedChartDemo';
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -24,48 +26,33 @@ class ChartBar extends Component {
       userData.data.map(user => {
         const date = Object.keys(user)[0];
         const number = user[date];
-        var newUserData = {'date': date, 'number': number, 'addedNumber': 0, 'city': '注册数'}
+        const addedNumber = 0;
+        var newUserData = {};
+        newUserData[T('日期')] = date;
+        newUserData[T('总注册用户量')] = number;
+        newUserData[T('日增用户量')] = addedNumber;
         if (lastUser != null) {
-          newUserData.addedNumber = newUserData.number - lastUser.number;
+          newUserData[T('日增用户量')] = newUserData[T('总注册用户量')] - lastUser[T('总注册用户量')];
         }
         lastUser = newUserData;
         userDataList.push(newUserData);
       });
-     // _this.setState({userData: userDataList});
+      console.log(userDataList);
+     _this.setState({userData: userDataList});
     })
   }
 
-  render() {
-    const colors = ["#6394f9", "#62daaa"];
+  render () {
     return (
-        <Chart height={400} data={this.state.userData} autoFit>
-          <Line shape="smooth" position="date*number" color="city" label="number"/>
-          <Point position="date*number" color="city" /> 
-          <Tooltip shared showCrosshairs/>
-          
-          {/* <Interval position="date*number" color='city' /> */}
-          {/* <Line
-            position="date*number"
-            color={colors[1]}
-            size={3}
-            shape="smooth"
-          /> */}
-        </Chart>
+          <ComposedChart width={1200} height={400} data={this.state.userData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+            <XAxis dataKey={T("日期")}/>
+            <YAxis />
+            <Legend />
+            <CartesianGrid stroke="#f5f5f5" />
+            <Tooltip />
+            <Bar dataKey={T("日增用户量")} barSize={20} fill="rgba(35, 201, 167, 1)" />
+            <Line dataKey={T("总注册用户量")} type="monotone" strokeWidth={2} stroke="#c02230" />
+          </ComposedChart>
     );
   }
 }
-
-const styles = {
-  title: {
-    margin: '0 0 40px',
-    fontSize: '18px',
-    paddingBottom: '15px',
-    fontWeight: 'bold',
-    borderBottom: '1px solid #eee',
-  },
-};
-
-export default  compose(
-  withRouter,
-  withTranslation()
-)(ChartBar);
