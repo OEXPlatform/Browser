@@ -5,7 +5,7 @@ import './Dashboard.scss';
 
 import DisplayCard from './components/DisplayCard';
 
-import TabChart from './components/TabChart';
+import ChartBar from './components/ChartBar';
 
 import BlocksTable from './components/BlocksTable';
 
@@ -38,6 +38,7 @@ export default class Dashboard extends Component {
     return (
       <div className="dashboard-page" style={{background: '#f5f6fa'}}>
         <DisplayCard />
+        <ChartBar style={{width: '82%', height: '80px', marginBottom: '16px'}}/>
         {/* <Slider style={{width: '50%', height: '80px', marginBottom: '16px'}}>{itemNodes}</Slider> */}
         <Row justify='space-around' style={{width: '82%'}}>
           <Col span="11">

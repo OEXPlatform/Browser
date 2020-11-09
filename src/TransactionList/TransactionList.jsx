@@ -67,7 +67,7 @@ class TransactionList extends Component {
     if (nextProps.txFrom.blockHeight != null) {
       this.getTxInfoByBlock(nextProps.txFrom.blockHeight);
     } else if (nextProps.txFrom.txHashArr != null) {
-      this.state.transactions = [];
+      //this.state.transactions = [];
       await this.getTxInfoByTxHash(nextProps.txFrom.txHashArr);
     }
   }
@@ -144,9 +144,6 @@ class TransactionList extends Component {
           transaction["actions"] = parsedActions;
           transactions.push(transaction);
           this.state.txHashSet[transaction.txHash] = 1;
-          if (transactions.length >= 20) {
-            break;
-          }
         }
         if (this.state.maxTxNum > 0) {
           const txNum = this.state.transactions.length + transactions.length;
@@ -154,14 +151,13 @@ class TransactionList extends Component {
             this.state.transactions = this.state.transactions.slice(0, this.state.transactions.length - (txNum - this.state.maxTxNum));
           }
         } 
-        transactions = [...transactions, ...this.state.transactions, ];
+        transactions = [...transactions, ...this.state.transactions];
         if (transactions.length > this.state.maxTxNum) {
           transactions = transactions.slice(0, transactions.length);
         }
-
+        this.state.transactions = transactions;
         this.setState({
-          ...this.state,
-          transactions,
+          ...this.state
         })
         this.state.isLoading = false;
       //});
@@ -377,7 +373,6 @@ class TransactionList extends Component {
   filterDupTx = () => {
     const existTxHash = {};
     const uniTxs = [];
-    console.log(existTxHash, this.state.transactions);
     this.state.transactions.map(txInfo => {
       if (existTxHash[txInfo.txHash] != true) {
         uniTxs.push(txInfo);

@@ -25,18 +25,19 @@ export default class TransactionsTable extends Component {
 
   componentDidMount() {
     eventProxy.on('updateBlocks', (blocks) => {
-      let txHashArr = [];
+      console.log('before', this.state.txHashArr);
       for (let i = 0; i < blocks.length; i++) {
         if (this.state.blockHashSet[blocks[i].number] == null) {
-          txHashArr.push(...blocks[i].transactions);
+          this.state.txHashArr.push(...blocks[i].transactions);
           this.state.blockHashSet[blocks[i].number] = 1;
-          if (txHashArr.length > this.state.maxTxNum) {
-            txHashArr = txHashArr.slice(0, this.state.maxTxNum);
+          if (this.state.txHashArr.length > this.state.maxTxNum) {
+            this.state.txHashArr = this.state.txHashArr.slice(0, this.state.maxTxNum);
             break;
           }
         }
       }
-      this.setState({txFrom: { txHashArr, maxTxNum: this.state.maxTxNum, fromHomePage: true }});
+      console.log('after', this.state.txHashArr);
+      this.setState({txFrom: { txHashArr: this.state.txHashArr, maxTxNum: this.state.maxTxNum, fromHomePage: true }});
     });
   }
 

@@ -618,6 +618,9 @@ const ch2en = {
   "创建合约": "Create Contract",
   "调用合约": "Invoke Contract",
   "更新账户": "Update Account",
+  '日期': 'Date',
+  '总注册用户量': 'Total User',
+  '日增用户量': 'Added User'
   }
 
   let isCh = true;
