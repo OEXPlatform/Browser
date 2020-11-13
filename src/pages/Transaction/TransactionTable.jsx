@@ -52,7 +52,10 @@ class TransactionTable extends Component {
       if (txInfo != null) {
         const txReceiptData = await oexchain.oex.getTransactionReceipt(hash);//formatHighlight(await oexchain.oex.getTransactionReceipt(hash), COLOR_OPTION);
         const txRawData = txInfo;//formatHighlight(txInfo, COLOR_OPTION);
-
+        if (txReceiptData == null) {
+          Feedback.toast.prompt(T('交易尚未执行'));
+          txReceiptData = {};
+        }
         this.setState({
           txFrom: { txHashArr: [hash] },
           txRawData,

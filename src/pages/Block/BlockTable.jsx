@@ -87,9 +87,12 @@ class BlockTableComponent extends Component {
       if (value.indexOf("0x") === 0) {
         let txInfo = await oexchain.oex.getTransactionByHash(value);
         if (txInfo != null) {
-          const txReceiptData = await oexchain.oex.getTransactionReceipt(value);//formatHighlight(await oexchain.oex.getTransactionReceipt(hash), COLOR_OPTION);
+          var txReceiptData = await oexchain.oex.getTransactionReceipt(value);//formatHighlight(await oexchain.oex.getTransactionReceipt(hash), COLOR_OPTION);
           const txRawData = txInfo;//formatHighlight(txInfo, COLOR_OPTION);
-
+          if (txReceiptData == null) {
+            Feedback.toast.prompt(T('交易尚未执行'));
+            txReceiptData = {};
+          }
           this.setState({
             txFrom: { txHashArr: [value] },
             txRawData,
