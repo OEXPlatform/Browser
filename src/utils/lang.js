@@ -621,7 +621,8 @@ const ch2en = {
   '日期': 'Date',
   '总注册用户量': 'Total User',
   '日增用户量': 'Added User',
-  '交易尚未执行': 'Transaction has NOT been executed.'
+  '交易尚未执行': 'Transaction has NOT been executed.',
+  '矿工提取激励': 'Miner withdraw reward'
   }
 
   let isCh = true;

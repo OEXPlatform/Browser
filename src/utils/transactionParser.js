@@ -65,6 +65,12 @@ function getActionTypeStr(actionTypeNum) {
     case actionTypes.VOTE_CANDIDATE:
       actionType = '给候选者投票';
       break;
+    case actionTypes.UPDATE_CANDIDATE_PUBLIC:
+      actionType = '矿工更新公钥';
+      break;
+    case actionTypes.WITHDRAW_CANDIDATE:
+      actionType = '矿工提取奖励';
+      break;
     case actionTypes.REFUND_DEPOSIT:
       actionType = '取回抵押金';
       break;
@@ -351,6 +357,11 @@ function parseAction(actionInfo, assetInfo, allAssetInfos, dposInfo) {
         } else {
           actionParseInfo.detailInfo = 'URL为空';
         }
+        break;
+      case actionTypes.WITHDRAW_CANDIDATE:
+        actionParseInfo.actionType = '矿工提取激励';
+        actionParseInfo.detailInfo = T('矿工') + ':' + fromAccount;
+        actionParseInfo.detailObj = {};
         break;
       case actionTypes.REFUND_DEPOSIT:
         actionParseInfo.actionType = '取回抵押金';

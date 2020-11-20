@@ -19,6 +19,8 @@ export const UPDATE_CANDIDATE = 769;
 export const UNREG_CANDIDATE = 770;
 export const REFUND_DEPOSIT = 771;
 export const VOTE_CANDIDATE = 772;
+export const UPDATE_CANDIDATE_PUBLIC = 773;
+export const WITHDRAW_CANDIDATE = 774;
 
 export const ADD_CANDIDATE_BL = 1024;
 export const EXIT_TAKEOVER = 1025;
