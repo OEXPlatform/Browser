@@ -105,6 +105,11 @@ class BlockTableComponent extends Component {
         value.length && Feedback.toast.prompt(T('请输入十六进制的hash值'));
       }
     }
+
+    let url = window.location.href;
+    if (window.location.href.indexOf('?') > -1)
+      url = window.location.href.substr(0, window.location.href.indexOf('?'));
+    window.history.pushState(null, null, url + '?' + this.state.searchedBlock);
   }
 
   // value为filter的值，obj为search的全量值

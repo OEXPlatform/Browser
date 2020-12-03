@@ -56,6 +56,13 @@ export default class AssetComponent extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.state.assetName = nextProps.location.search.length > 1 ? nextProps.location.search.substr(1) : null;
+    if (this.state.assetName != null) {
+      this.onSearch();
+    }
+  }
+
   onSearch = () => {
     oexchain.account.getAssetInfoByName(this.state.assetName).then(assetInfo => {
       if (assetInfo == null) {
@@ -64,7 +71,15 @@ export default class AssetComponent extends Component {
       }
       console.log(assetInfo);
       this.setState({assetInfo});
-    })
+    }).catch(error => {
+      Feedback.toast.error(T('资产不存在'));
+      return;
+    });
+
+    let url = window.location.href;
+    if (window.location.href.indexOf('?') > -1)
+      url = window.location.href.substr(0, window.location.href.indexOf('?'));
+    window.history.pushState(null, null, url + '?' + this.state.assetName);
   }
 
   onAssetChange(v) {

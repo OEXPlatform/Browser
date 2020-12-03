@@ -50,6 +50,13 @@ export default class AccountComponent extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.state.accountName = nextProps.location.search.length > 1 ? nextProps.location.search.substr(1) : null;
+    if (this.state.accountName != null) {
+      this.onSearch();
+    }
+  }
+
   onSearch = async () => {
     oexchain.account.getAccountByName(this.state.accountName).then(accountInfo => {
       if (accountInfo == null) {
@@ -62,7 +69,11 @@ export default class AccountComponent extends Component {
           this.state.assetList.push({assetName: assetInfo.assetName, symbol: assetInfo.symbol, balance: balance.balance, decimals: assetInfo.decimals});
           this.setState({assetList: this.state.assetList});
         })
-      })
+      });
+      let url = window.location.href;
+      if (window.location.href.indexOf('?') > -1)
+        url = window.location.href.substr(0, window.location.href.indexOf('?'));
+      window.history.pushState(null, null, url + '?' + this.state.accountName);
       this.setState({accountInfo});
     });
     this.showAccountTxTable(this.state.accountName, 0);
