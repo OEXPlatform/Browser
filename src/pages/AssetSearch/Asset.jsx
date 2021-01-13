@@ -42,16 +42,26 @@ export default class AssetComponent extends Component {
         totalAccountsNum: 0,
         pageSize: 10,
         isLoading: true,
+        isLoadingAsset: true,
+        assetCurrentPage: 0,
+        assetPageSize: 10,
+        totalAssetsNum: 200,
     };
   }
 
   componentDidMount = () => {
-    fetch("https://api.oexchain.com/api/rpc/gettokens?pageIndex=0&pageSize=100").then(response => {
+    this.getAssets();
+  }
+
+  getAssets = () => {
+    this.setState({assetList: [], isLoadingAsset: true});
+    const requestUrl = "https://api.oexchain.com/api/rpc/gettokens?pageIndex=" + this.state.assetCurrentPage + "&pageSize=" + this.state.assetPageSize;
+    fetch(requestUrl).then(response => {
       return response.json();
     }).then(tokensInfo => {
       if (tokensInfo != null && tokensInfo.data != null) {
         const assetList = tokensInfo.data.list;
-        this.setState({assetList});
+        this.setState({assetList, isLoadingAsset: false});
       }
     })
   }
@@ -134,6 +144,12 @@ export default class AssetComponent extends Component {
     this.showAccountsTable(this.state.curAssetInfo, currentPage);
   }
 
+  onAssetChange = (currentPage) => {
+    this.state.assetCurrentPage = currentPage;
+    this.getAssets();
+    this.setState({assetCurrentPage: currentPage, isLoading: true});
+  }
+
   render() {
 
     const {match, t} = this.props;
@@ -162,6 +178,7 @@ export default class AssetComponent extends Component {
               <Table primaryKey="name" language={T('zh-cn')} style={{width: '100%'}}
                 isZebra={false}  hasBorder={false} 
                 dataSource={this.state.assetList}
+                loading={this.state.isLoadingAsset}
                 emptyContent={<Nodata />}
               >
                 <Table.Column title={T("资产名")} dataIndex="assetName" width={100} cell={this.assetNameRender.bind(this)}/>
@@ -170,6 +187,9 @@ export default class AssetComponent extends Component {
                 <Table.Column title={T("持有账户数")} dataIndex="stats" width={100}  cell={this.accountStatRender.bind(this)}/>
                 <Table.Column title={T("交易数量")} dataIndex="transfers" width={100}/>
               </Table>
+            </Row>
+            <Row justify='end'>
+              <Pagination hideOnlyOnePage showJump={false} shape="arrow-only" current={this.state.assetCurrentPage} pageSize={this.state.assetPageSize} total={this.state.totalAssetsNum} onChange={this.onAssetChange} style={{marginTop: '10px'}} />
             </Row>
           </IceContainer>
         </div>

@@ -135,6 +135,22 @@ function parseAction(actionInfo, assetInfo, allAssetInfos, dposInfo) {
         actionParseInfo.detailInfo = payloadInfo; // 无
         actionParseInfo.detailObj = {};
         break;
+      case actionTypes.CALL_CONTRACT_MULTIASSET:
+          actionParseInfo.actionType = T('调用合约(多资产)');
+          const abiInfo1 = getDataFromFile(actionTypes.ContractABIFile);
+          if (abiInfo1 != null && abiInfo1[toAccount] != null) {
+            const callFuncInfo = oexchain.utils.parseContractTxPayload(abiInfo1[toAccount], payloadInfo);
+            if (callFuncInfo != null) {
+              payloadInfo = T('调用方法') + ':' + callFuncInfo.funcName + ',' + T('参数信息');
+              callFuncInfo.parameterInfos.map(parameterInfo => {
+                payloadInfo += parameterInfo.name + '[' + parameterInfo.type + ']=' + parameterInfo.value + ',';
+              })
+            }
+          }
+  
+          actionParseInfo.detailInfo = payloadInfo; // 无
+          actionParseInfo.detailObj = {};
+          break;
       case actionTypes.CREATE_NEW_ACCOUNT:
         actionParseInfo.actionType = '创建账户';
         if (payloadInfo.length >= 4) {
