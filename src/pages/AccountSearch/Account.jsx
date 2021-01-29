@@ -196,7 +196,7 @@ export default class AccountComponent extends Component {
                 <Table.Column title={T("区块hash")} dataIndex="blockhash" width={100} cell={this.blockHashRender.bind(this)}/>
                 <Table.Column title={T("区块高度")} dataIndex="blocknumber" width={100} />
                 <Table.Column title={T("交易时间")} dataIndex="transactiontime" width={100} cell={this.timestampRender.bind(this)}/>
-                <Table.Column title={T("交易类型")} dataIndex="actiontype" width={100} cell={this.txTypeRender.bind(this)}/>
+                <Table.Column title={T("交易类型")} dataIndex="txtype" width={100} cell={this.txTypeRender.bind(this)}/>
                 <Table.Column title={T("交易结果")} dataIndex="actiondata" width={100} cell={this.txResultRender.bind(this)}/>
                 {/* <Table.Column title={T("交易详情")} dataIndex="actiondata" width={100} cell={this.txDetailRender.bind(this)}/> */}
               </Table>
